@@ -1,6 +1,8 @@
 import react, {Component} from "react";
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native"
+import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native"
 import { Button } from "react-native-web";
+
+import Navbar from '../components/Navbar/Navbar'
 
 class Home extends Component{
     constructor(){
@@ -13,8 +15,9 @@ class Home extends Component{
 
     render(){
         return(
-            <p>hola</p>
-
+            <View>
+            <Navbar/>
+            </View>
         )
     }
 }

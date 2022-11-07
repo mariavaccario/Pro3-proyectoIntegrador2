@@ -1,5 +1,11 @@
+import { NavigationContainer } from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+
+import Register from './src/screens/Register';
+import Login from './src/screens/Login';
+import Home from './src/screens/Home'
 
 export default function App() {
   return (
