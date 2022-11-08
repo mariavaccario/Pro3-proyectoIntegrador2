@@ -6,6 +6,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Register from './src/screens/Register';
 import Login from './src/screens/Login';
 import Home from './src/screens/Home'
+import TabNavigator from './src/components/TabNavigator/TabNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,9 +14,9 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name ='Home' component={Home} options={{headerShown: false}}/>
-        <Stack.Screen name ='Register' component={Register} options={{headerShown: false}}/>
         <Stack.Screen name ='Login' component={Login} options={{headerShown: false}}/>
+        <Stack.Screen name ='Register' component={Register} options={{headerShown: false}}/>
+        <Stack.Screen name ='TabNavigator' component={TabNavigator} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
 

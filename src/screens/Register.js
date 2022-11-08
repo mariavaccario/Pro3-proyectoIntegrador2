@@ -45,7 +45,7 @@ class Register extends Component{
                 errors:''
             })
 
-            this.props.navigation.navigate('Home')
+            this.props.navigation.navigate('Login')
         })
 
         .catch(error=> console.log(error))
