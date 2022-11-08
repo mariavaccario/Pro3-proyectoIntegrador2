@@ -4,7 +4,7 @@ import { View,
          Text,
          TextInput,
          TouchableOpacity,
-        StyleSheet } from 'react-native';
+         StyleSheet } from 'react-native';
 
 class Register extends Component{
     constructor(){
