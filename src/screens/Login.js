@@ -21,7 +21,7 @@ class Login extends Component {
         auth.signInWithEmailAndPassword(email, pass)
             .then( res => {
                 //equivalente a res.redirect
-                this.props.navigation.navigate('HomeMenu')
+                this.props.navigation.navigate('Home')
             })
             .catch(error => console.log(error))
     }
