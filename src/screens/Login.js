@@ -5,6 +5,7 @@ import { View,
          TextInput,
          TouchableOpacity,
          StyleSheet } from 'react-native';
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
     constructor(){
@@ -29,9 +30,9 @@ class Login extends Component {
 
     render(){
         return(
-            <View> 
-                <Text>Login</Text>
-                <View>
+            <View style={style.container} >
+                <Text style={style.textTitle}>Inciá sesión</Text>
+                
                    <TextInput  
                        placeholder='email'
                        keyboardType='email-address'
@@ -48,13 +49,33 @@ class Login extends Component {
                     <TouchableOpacity onPress={()=>this.loginUser(this.state.email, this.state.pass)}>
                         <Text>Ingresar</Text>
                     </TouchableOpacity>
-                    <Text onPress={ () => this.props.navigation.navigate('Register')} >Ir a Registro</Text>
-                </View>
+                    <Text onPress={ () => this.props.navigation.navigate('Register')} >Registrate</Text>
+                
             </View>
         )
     }
     
-}
+};
+
+const style= StyleSheet.create({
+    container:{
+        flex: 1,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        padding: 15,
+        color: 'black'
+    },
+
+    textTitle:{
+        fontWeight: 700,
+        color: 'black',
+        fontSize: '30',
+        textAlign: 'center',
+        padding: 5
+    },
+    
+
+})
 
 
 export default Login;
