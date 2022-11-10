@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Text, TextInput, TouchableOpacity,View} from 'react-native';
 import {auth, db} from '../firebase/config';
 import MyCamera from '../components/Camera/Camera';
+import {StyleSheet} from 'react-native-web';
 
 
 class NewPost extends Component{
@@ -16,8 +17,13 @@ class NewPost extends Component{
     }
 
     createPost(texto, photo){
-        db.collection('posts').add({
-                owner: 'reynala@udesa.edu.ar', 
+        db.collection('users'.where('owner', '==', auth.currentUser.email))
+        .onSnapshot(users => {
+
+        if(users.docs.length > 0 ){
+            db.collection('posts').add({
+                owner: auth.currentUser.email, 
+                userName: users.docs[0].data().userName,
                 textoPost: texto,
                 photo: photo,
                 likes:[],
@@ -32,6 +38,10 @@ class NewPost extends Component{
                 this.props.navigation.navigate('Home')
             })
             .catch( error => console.log(error))
+        }
+        
+
+        })
     }
 
     onImageUpload(url){

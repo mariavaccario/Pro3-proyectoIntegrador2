@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Camera } from 'expo-camera';
-//import {storage} from '../firebase/config';
+import {storage} from '../../firebase/config';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 
 class MyCamera extends Component{
@@ -46,6 +46,13 @@ class MyCamera extends Component{
                     })
             })
             .catch(e => console.log(e))
+    }
+
+    cancel(){
+        this.setState({
+            urlTemporal: '',
+            showCamera: true
+        })
     }
 
 
