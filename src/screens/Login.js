@@ -5,7 +5,7 @@ import { View,
          TextInput,
          TouchableOpacity,
          StyleSheet } from 'react-native';
-import { withRouter } from 'react-router-dom';
+//import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
     constructor(){
@@ -13,18 +13,42 @@ class Login extends Component {
         this.state = {
             email:'',
             pass:'',
-            errors:''
+            errors:{
+                field:'', 
+                message: ''
+            }
         }
     }
 
+    componentDidMount(){
+        auth.onAuthStateChanged(
+            user =>{
+                if(user){
+                    this.props.navigation.navigate('TabNavigator')
+                }
+            })
+    }
+
     loginUser(email, pass){
-        //Registrar en firebase y si el reigstro sale bien redireccionar a Home
         auth.signInWithEmailAndPassword(email, pass)
             .then( res => {
-                //equivalente a res.redirect
                 this.props.navigation.navigate('TabNavigator')
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                let errorField = '' 
+                if (error.code === 'auth/invalid-email'){
+                    errorField='email'
+                }else if (error.code === 'auth/invalid-password'){
+                    errorField='password'
+                }
+                this.setState({
+                    errors:{
+                        field: errorField, 
+                        message: error.message
+                    }
+                })
+            })
     }
 
 
@@ -32,13 +56,16 @@ class Login extends Component {
         return(
             <View style={style.container} >
                 <Text style={style.textTitle}>Inciá sesión</Text>
-                
+                <View>
                    <TextInput  
                        placeholder='email'
                        keyboardType='email-address'
                        onChangeText={ text => this.setState({email:text}) }
                        value={this.state.email}
                     /> 
+                    {this.state.errorField === 'email' && (
+                        <Text>{this.state.errors.message}</Text>
+                    )}
                     <TextInput  
                         placeholder='password'
                         keyboardType='default'
@@ -46,12 +73,15 @@ class Login extends Component {
                         onChangeText={ text => this.setState({pass:text}) }
                         value={this.state.pass}
                     />  
+                    {this.state.errorField === 'password' && (
+                        <Text>{this.state.errors.message}</Text>
+                    )}
 
                     <TouchableOpacity onPress={()=>this.loginUser(this.state.email, this.state.pass)}>
                         <Text>Ingresar</Text>
                     </TouchableOpacity>
                     <Text onPress={ () => this.props.navigation.navigate('Register')} >Registrate</Text>
-                
+                </View>
             </View>
         )
     }
