@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Text, TextInput, TouchableOpacity,View} from 'react-native';
 import {auth, db} from '../firebase/config';
-//import MyCamera from '../components/MyCamera';
+import MyCamera from '../components/Camera/Camera';
 
 
 class NewPost extends Component{
@@ -11,7 +11,7 @@ class NewPost extends Component{
             textoPost:'',
             createdAt:'',
             photo:'',
-            //showCamera: true,
+            showCamera: true,
         }
     }
 
@@ -27,7 +27,7 @@ class NewPost extends Component{
             .then(() => {
                 this.setState({
                     textoPost:'',
-                   // showCamera: true,
+                   showCamera: true,
                 })
                 this.props.navigation.navigate('Home')
             })
@@ -37,7 +37,7 @@ class NewPost extends Component{
     onImageUpload(url){
         this.setState({
             photo: url,
-            //showCamera: false,
+            showCamera: false,
         })
     }
 
@@ -54,7 +54,6 @@ class NewPost extends Component{
                         <TextInput  
                             placeholder='texto post'
                             keyboardType='default'
-                            //poner propiedad para transformarlo en textArea
                             onChangeText={ text => this.setState({textoPost:text}) }
                             value={this.state.textoPost}
                         /> 
