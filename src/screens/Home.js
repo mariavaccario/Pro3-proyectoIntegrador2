@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { auth, db } from '../firebase/config';
-import { Text, FlatList, TouchableOpacity } from 'react-native';
+import { View,
+    Text,
+    TouchableOpacity,
+    Image,
+    FlatList} from 'react-native';
 import { StyleSheet } from 'react-native-web';
 
 import Posteo from '../components/Posteo/Posteo'
@@ -47,32 +51,36 @@ class Home extends Component {
         return (
             <>
                 <Navbar />
-               <Text>Tentate con BeFoodie</Text>
 
-                <FlatList style={styles.fondo}
+                <View style={style.contenedor}>
+                <Image style = {style.logo} 
+                source={require("../../assets/tentate.png")}
+                resizeMode='contain'/>
+
+                <FlatList style={style.fondo}
                     data={this.state.posts}
                     keyExtractor={onePost => onePost.id.toString()}
                     renderItem={({ item }) => <Posteo postData={item} irAComments={ () => this.irAComments()} />}
                 />
                 <TouchableOpacity onPress={() => this.logout()} >
-                    <Text style={styles.logout}>Log out</Text>
+                    <Text style={style.logout}>Log out</Text>
                 </TouchableOpacity> 
 
-
+                </View>
             </>
 
         )
     }
 
 }
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
     fondo: {
         backgroundColor: 'white'
 
     },
     logout: {
-        color: 'white',
-        backgroundColor: 'black'
+        color: 'black',
+        backgroundColor: 'white'
 
     },
     titulos: {
@@ -81,7 +89,25 @@ const styles = StyleSheet.create({
         flex: 1
 
 
+    },
+    logo:{
+        height:100, 
+        margin: 15,
+        backgroundColor: 'white'
+    },
+
+    contenedor: {
+        
+            flex: 1,
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            padding: 15,
+            color: 'black'
+        
     }
+
+
+
 
 })
 

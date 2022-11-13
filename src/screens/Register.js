@@ -60,7 +60,7 @@ class Register extends Component{
             <View style={style.contenedor}> 
 
                 <Image style = {style.logo} 
-                source={require("../../assets/register.png")}
+                source={require("../../assets/register.com.png")}
                 resizeMode='contain'/>
                 
                 

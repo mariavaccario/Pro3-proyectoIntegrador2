@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
-import {Text, TextInput, TouchableOpacity,View} from 'react-native';
+import {Text, TextInput, TouchableOpacity,View, Image} from 'react-native';
 import {auth, db} from '../firebase/config';
 import MyCamera from '../components/Camera/Camera';
 import {StyleSheet} from 'react-native-web';
+
+import Navbar from '../components/Navbar/Navbar'
 
 
 class NewPost extends Component{
@@ -56,22 +58,29 @@ class NewPost extends Component{
 
     render(){
         return(
+            
             <View>
+                <Navbar/>
             {
                 this.state.showCamera ?
                 <MyCamera onImageUpload={url => this.onImageUpload(url)}/>
                 :
-                <View>
-                    <Text> Mostra la comida que comiste hoy</Text>
-                    <View>
-                        <TextInput  
-                            placeholder='texto post'
+                <View style={style.contenedor}>
+                    <Image style={style.logo}
+                    source={require("../../assets/tentate.png")}
+                    resizeMode='contain'/>
+                   
+``
+                    
+                    <View style={style.contenedor}>
+                        <TextInput style={style.box} 
+                            placeholder='Escribi lo que pensas'
                             keyboardType='default'
                             onChangeText={ text => this.setState({textoPost:text}) }
                             value={this.state.textoPost}
                         /> 
                         <TouchableOpacity onPress={()=>this.createPost(this.state.textoPost, this.state.photo)}>
-                            <Text>Subir</Text>
+                            <Text style={style.botonIngresar}>Subir</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -79,6 +88,45 @@ class NewPost extends Component{
             </View>
         )
     }
+
 }
+
+const style = StyleSheet.create({
+    
+    contenedor:{
+        flex: 1,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        padding: 15,
+        color: 'black'
+    },
+    logo:{
+        height:100, 
+        margin: 15
+    },
+    box:{
+        borderStyle: 'solid',
+        borderWith: 3,
+        padding: 15,
+        margin: 3,
+        borderColor: 'black',
+        backgroundColor: 'rgb(243,245,243)',
+        borderRadius: 7
+
+    },
+    botonIngresar: {
+        borderStyle: 'solid',
+        borderWith: 1,
+        borderColor: 'black',
+        backgroundColor: 'rgb(49,47,53)',
+        marginHorizontal: 100,
+        marginVertical: 50,
+        padding: 15,
+        textAlign: 'center',
+        color: 'white',
+        borderRadius: 3,
+
+    },
+})
 
 export default NewPost;
