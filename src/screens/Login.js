@@ -4,7 +4,8 @@ import { View,
          Text,
          TextInput,
          TouchableOpacity,
-         StyleSheet } from 'react-native';
+         StyleSheet,
+        Image } from 'react-native';
 //import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
@@ -54,10 +55,16 @@ class Login extends Component {
 
     render(){
         return(
-            <View style={style.container} >
-                <Text style={style.textTitle}>Inciá sesión</Text>
+            <View style={style.contenedor} >
+                 <Image style = {style.logo} 
+                source={require("../../assets/Artboard 1.png")}
+                resizeMode='contain'/>
+            
+                
+                
                 <View>
-                   <TextInput  
+
+                   <TextInput style={style.box} 
                        placeholder='email'
                        keyboardType='email-address'
                        onChangeText={ text => this.setState({email:text}) }
@@ -66,7 +73,7 @@ class Login extends Component {
                     {this.state.errorField === 'email' && (
                         <Text>{this.state.errors.message}</Text>
                     )}
-                    <TextInput  
+                    <TextInput style={style.box}
                         placeholder='password'
                         keyboardType='default'
                         secureTextEntry={true}
@@ -77,11 +84,13 @@ class Login extends Component {
                         <Text>{this.state.errors.message}</Text>
                     )}
 
+            </View> 
+
                     <TouchableOpacity onPress={()=>this.loginUser(this.state.email, this.state.pass)}>
-                        <Text>Ingresar</Text>
+                        <Text style={style.botonIngresar}>Ingresar</Text>
                     </TouchableOpacity>
-                    <Text onPress={ () => this.props.navigation.navigate('Register')} >Registrate</Text>
-                </View>
+                    <Text style={style.textTitle}onPress={ () => this.props.navigation.navigate('Register')} >Si no tenes cuenta, registrate aca</Text>
+                
             </View>
         )
     }
@@ -89,7 +98,7 @@ class Login extends Component {
 };
 
 const style= StyleSheet.create({
-    container:{
+    contenedor:{
         flex: 1,
         backgroundColor: 'white',
         justifyContent: 'center',
@@ -97,12 +106,43 @@ const style= StyleSheet.create({
         color: 'black'
     },
 
+    box:{
+        borderStyle: 'solid',
+        borderWith: 3,
+        padding: 15,
+        margin: 3,
+        backgroundColor: 'rgb(243,245,243)',
+        borderRadius: 7,
+        borderColor: 'black',
+        
+
+    },
+
     textTitle:{
-        fontWeight: 700,
+        fontWeight: 500,
         color: 'black',
-        fontSize: '30',
+        fontSize: '200',
         textAlign: 'center',
+        marginVertical: 50,
        
+    },
+
+    botonIngresar: {
+        borderStyle: 'solid',
+        borderWith: 1,
+        borderColor: 'black',
+        backgroundColor: 'rgb(49,47,53)',
+        marginHorizontal: 100,
+        marginVertical: 50,
+        padding: 15,
+        textAlign: 'center',
+        color: 'white',
+        borderRadius: 3,
+
+    },
+    logo:{
+        height:100, 
+        margin: 15
     },
 
 

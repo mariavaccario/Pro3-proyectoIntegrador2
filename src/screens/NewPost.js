@@ -17,7 +17,10 @@ class NewPost extends Component{
     }
 
     createPost(texto, photo){
-        db.collection('users'.where('owner', '==', auth.currentUser.email))
+        db.collection('users'
+        
+        //.where('owner', '==', auth.currentUser.email)
+        )
         .onSnapshot(users => {
 
         if(users.docs.length > 0 ){
@@ -32,8 +35,8 @@ class NewPost extends Component{
             })
             .then(() => {
                 this.setState({
-                    textoPost:'',
-                   showCamera: true,
+                    textoPost:'', //limpio el texto para que si quiero volver sa subir una foto, no me aparezca la anterior
+                    showCamera: true,
                 })
                 this.props.navigation.navigate('Home')
             })
@@ -59,7 +62,7 @@ class NewPost extends Component{
                 <MyCamera onImageUpload={url => this.onImageUpload(url)}/>
                 :
                 <View>
-                    <Text> Nuevo posteo form</Text>
+                    <Text> Mostra la comida que comiste hoy</Text>
                     <View>
                         <TextInput  
                             placeholder='texto post'
@@ -68,7 +71,7 @@ class NewPost extends Component{
                             value={this.state.textoPost}
                         /> 
                         <TouchableOpacity onPress={()=>this.createPost(this.state.textoPost, this.state.photo)}>
-                            <Text>Guardar</Text>
+                            <Text>Subir</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

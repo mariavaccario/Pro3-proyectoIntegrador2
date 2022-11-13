@@ -4,7 +4,8 @@ import { View,
          Text,
          TextInput,
          TouchableOpacity,
-         StyleSheet } from 'react-native';
+         StyleSheet,
+        Image } from 'react-native';
 
 class Register extends Component{
     constructor(){
@@ -56,41 +57,45 @@ class Register extends Component{
 
     render(){
         return(
-            <View> 
-                <Text>Registro</Text>
-                <View>
-                    <TextInput  
-                        placeholder='email'
+            <View style={style.contenedor}> 
+
+                <Image style = {style.logo} 
+                source={require("../../assets/register.png")}
+                resizeMode='contain'/>
+                
+                
+                    <TextInput style={style.box} 
+                        placeholder='Email'
                         keyboardType='email-address'
                         onChangeText={ text => this.setState({email:text}) }
                         value={this.state.email}
                     /> 
-                    <TextInput  
-                        placeholder='password'
+                    <TextInput style={style.box} 
+                        placeholder='Password'
                         keyboardType='default'
                         onChangeText={ text => this.setState({pass:text}) }
                         value={this.state.pass}
                     /> 
-                    <TextInput  
-                        placeholder='user name'
+                    <TextInput style={style.box}   
+                        placeholder='Username'
                         keyboardType='default'
                         onChangeText={ text => this.setState({userName:text}) }
                         value={this.state.userName}
                     />
-                    <TextInput  
-                        placeholder='Mini Bio'
+                    <TextInput style={style.box}  
+                        placeholder='Bio'
                         keyboardType='default'
                         onChangeText={ text => this.setState({bio:text}) }
                         value={this.state.bio}
                     />   
 
                     <TouchableOpacity onPress={()=>this.registerUser(this.state.email, this.state.pass, this.state.userName, this.state.bio)}>
-                        <Text>Registrarme</Text>
+                        <Text style={style.botonIngresar}>Registrarme</Text>
                     </TouchableOpacity>
 
-                    <Text onPress={()=> this.props.navigation.navigate('Login')}>ir a login</Text>
+                    <Text style={style.textTitle} onPress={()=> this.props.navigation.navigate('Login')}>Ir a login</Text>
 
-                </View>
+                
             </View>
 
         )
@@ -98,6 +103,56 @@ class Register extends Component{
         }
 
                     
-}
+};
+
+const style= StyleSheet.create({
+    contenedor:{
+        flex: 1,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        padding: 15,
+        color: 'black'
+    },
+
+    box:{
+        borderStyle: 'solid',
+        borderWith: 3,
+        padding: 15,
+        margin: 3,
+        borderColor: 'black',
+        backgroundColor: 'rgb(243,245,243)',
+        borderRadius: 7
+
+    },
+
+    textTitle:{
+        fontWeight: 500,
+        color: 'black',
+        fontSize: '100',
+        textAlign: 'center',
+        marginVertical: 50,
+       
+    },
+
+    botonIngresar: {
+        borderStyle: 'solid',
+        borderWith: 1,
+        borderColor: 'black',
+        backgroundColor: 'rgb(49,47,53)',
+        marginHorizontal: 100,
+        marginVertical: 50,
+        padding: 15,
+        textAlign: 'center',
+        color: 'white',
+        borderRadius: 3,
+
+    },
+    logo:{
+        height:100, 
+        margin: 15
+    }
+
+
+})
 
 export default Register;

@@ -14,18 +14,20 @@ class Home extends Component {
         }
     }
 
+   
+
     componentDidMount() {
         db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(
             docs => {
                 let posts = [];
-                docs.forEach(doc => {
+                docs.forEach(doc => { 
                     posts.push({
-                        id: doc.id,
-                        data: doc.data()
-                    })
+                        id: doc.id, 
+                        data: doc.data() 
+                    }) //aca queremos pushear en users de un objeto literal 
                     this.setState({
                         posts: posts
-                    })
+                    }) //con cada vuelta del forEach le decimos que actualiza el estado para que aunque se actualice, sigan apareciendo los posts
                 })
             }
         )
@@ -41,10 +43,11 @@ class Home extends Component {
     }
 
     render() {
+        console.log(this.state.posts);
         return (
             <>
                 <Navbar />
-               
+               <Text>Tentate con BeFoodie</Text>
 
                 <FlatList style={styles.fondo}
                     data={this.state.posts}
@@ -53,7 +56,9 @@ class Home extends Component {
                 />
                 <TouchableOpacity onPress={() => this.logout()} >
                     <Text style={styles.logout}>Log out</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> 
+
+
             </>
 
         )
