@@ -51,7 +51,7 @@ render(){
        <View>
             <Image style={style.imagen}
                  source= {{uri: this.props.postData.data.photo}}
-                 resizeMode='cover'   
+                 resizeMode='contain'   
             />
         {this.state.userLike ?
              <TouchableOpacity onPress={()=> this.meGusta()}>

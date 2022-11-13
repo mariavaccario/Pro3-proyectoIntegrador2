@@ -1,9 +1,9 @@
 import {Text} from 'react-native'
 
-function Home(){
+function Profile(){
     return(
         <Text> Profile</Text>
     )
 }
 
-export default Home
+export default Profile;
