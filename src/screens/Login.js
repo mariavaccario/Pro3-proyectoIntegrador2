@@ -137,7 +137,7 @@ const style= StyleSheet.create({
         padding: 15,
         textAlign: 'center',
         color: 'white',
-        borderRadius: 3,
+        borderRadius: 7,
 
     },
     logo:{
