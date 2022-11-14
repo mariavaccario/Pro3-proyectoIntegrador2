@@ -126,9 +126,9 @@ const style= StyleSheet.create({
     },
 
     textTitle:{
-        fontWeight: 500,
+        fontWeight: 'bold',
         color: 'black',
-        fontSize: '100',
+        fontSize: 20,
         textAlign: 'center',
         marginVertical: 50,
        

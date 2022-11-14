@@ -1,7 +1,6 @@
 import { grey } from "kleur";
-import react, {Component} from "react";
+import React, {Component} from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native"
-import { Button } from "react-native-web";
 import { Entypo, AntDesign } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 

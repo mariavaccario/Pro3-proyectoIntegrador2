@@ -104,17 +104,16 @@ const styles = StyleSheet.create({
         
     },
     
-    
     cameraBody: {
-        height: 500,
+        height: '75%',
     },
     button:{
-        height: '20vh',
+        height: '20%',
         padding: 5,
         marginTop: 20
     },
     preview:{
-        height:500,
+        height:'60%',
         //marginVertical: 100,
         marginBottom: 3
     },

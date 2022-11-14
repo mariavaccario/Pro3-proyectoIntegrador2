@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import {Text, TextInput, TouchableOpacity,View, Image} from 'react-native';
+import {Text, TextInput, TouchableOpacity,View, Image, StyleSheet} from 'react-native';
 import {auth, db} from '../firebase/config';
 import { FontAwesome, Ionicons, AntDesign, Entypo } from '@expo/vector-icons';
 import MyCamera from '../components/Camera/Camera';
-import {StyleSheet} from 'react-native-web';
 
 import Navbar from '../components/Navbar/Navbar'
 
@@ -58,15 +57,12 @@ class NewPost extends Component{
     render(){
         return(
             
-            <View>
+            <View style={style.contenedor}>
                 <Navbar/>
             {this.state.showCamera ?
                 <MyCamera onImageUpload={url => this.onImageUpload(url)}/>
                 :
-                <View style={style.contenedor}>
-                    <Image style={style.logo}
-                    source={require("../../assets/tentate.png")}
-                    resizeMode='contain'/>
+                <View>
                        
                         {this.state.photo !== '' ? 
                         <>
@@ -74,7 +70,7 @@ class NewPost extends Component{
                                 style={style.image}
                                 source={{uri: this.state.photo}}
                             />
-                            <View style={style.contenedor}>
+                            <View >
                                 <TextInput style={style.box} 
                                     placeholder='Que estas comiendo?'
                                     keyboardType='default'
@@ -87,8 +83,8 @@ class NewPost extends Component{
                             </View>
                         </>
                         : 
-                        <TouchableOpacity onPress={() => this.camara()}>
-                            <Text><AntDesign name="camerao" size={24} color="white" /> Agregar foto</Text>
+                        <TouchableOpacity  style={style.button} onPress={() => this.camara()}>
+                            <Text style={style.buttonText}> <AntDesign name="camerao" size={24} color="white" /> Agregar foto </Text>
                         </TouchableOpacity>
                         }
                 </View>
@@ -103,15 +99,14 @@ class NewPost extends Component{
 const style = StyleSheet.create({
     
     contenedor:{
-        flex: 1,
         backgroundColor: 'white',
-        justifyContent: 'center',
         padding: 15,
         color: 'black'
     },
     logo:{
-        height:100, 
-        margin: 15
+        height:100,
+        width:'100%', 
+        backgroundColor: 'white'
     },
     box:{
         borderStyle: 'solid',
@@ -137,10 +132,23 @@ const style = StyleSheet.create({
 
     },
     image: {
-        width: 400,
         height: 400,
         marginVertical: 10,
         
+    },
+    button:{
+        marginTop: 40,
+        borderColor: '#444',
+        borderWidth: 1,
+        paddingVertical:8,
+        borderRadius: 4,
+        backgroundColor:'rgb(49,47,53)'
+    },
+    buttonText:{
+        fontSize:20,
+        color: '#fff',
+        textAlign: 'center',
+
     }
 })
 

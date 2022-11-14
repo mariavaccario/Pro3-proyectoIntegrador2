@@ -57,7 +57,7 @@ class Login extends Component {
         return(
             <View style={style.contenedor} >
                  <Image style = {style.logo} 
-                source={require("../../assets/Artboard 1.png")}
+                source={require("../../assets/Artboard1.png")}
                 resizeMode='contain'/>
             
                 
@@ -119,9 +119,9 @@ const style= StyleSheet.create({
     },
 
     textTitle:{
-        fontWeight: 500,
+        fontWeight: 'bold',
         color: 'black',
-        fontSize: '200',
+        fontSize: 20,
         textAlign: 'center',
         marginVertical: 50,
        

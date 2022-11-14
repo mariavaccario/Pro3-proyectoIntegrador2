@@ -4,8 +4,8 @@ import { View,
     Text,
     TouchableOpacity,
     Image,
-    FlatList} from 'react-native';
-import { StyleSheet } from 'react-native-web';
+    FlatList,
+    StyleSheet} from 'react-native';
 
 import Posteo from '../components/Posteo/Posteo'
 import Navbar from '../components/Navbar/Navbar'
@@ -49,13 +49,13 @@ class Home extends Component {
     render() {
         console.log(this.state.posts);
         return (
-            <>
+            <View style={style.contenedor}>
                 <Navbar />
 
-                <View style={style.contenedor}>
+                
                 <Image style = {style.logo} 
-                source={require("../../assets/tentate.png")}
-                resizeMode='contain'/>
+                    source={require("../../assets/tentate.png")}
+                    resizeMode='contain'/>
 
                 <FlatList style={style.fondo}
                     data={this.state.posts}
@@ -66,8 +66,7 @@ class Home extends Component {
                     <Text style={style.logout}>Log out</Text>
                 </TouchableOpacity> 
 
-                </View>
-            </>
+            </View>
 
         )
     }
@@ -88,19 +87,17 @@ const style = StyleSheet.create({
         backgroundColor: 'black',
         flex: 1
 
-
     },
     logo:{
-        height:100, 
+        height:100,
+        width:'100%', 
         backgroundColor: 'white'
     },
 
     contenedor: {
-        
             flex: 1,
             backgroundColor: 'white',
             justifyContent: 'center',
-            padding: 15,
             color: 'black'
         
     }
