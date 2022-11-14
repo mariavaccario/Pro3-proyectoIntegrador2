@@ -17,7 +17,7 @@ function TabNavigator(){
                 name='Home'
                 component = {Home}
                 options={
-                    {tabBarIcon: ()=> <Entypo name="home" size={24} color="black" />}
+                    {tabBarIcon: ()=> <Entypo name="home" size={24} color="black" />, headerShown: false}
                 }/>
 
              <Tab.Screen

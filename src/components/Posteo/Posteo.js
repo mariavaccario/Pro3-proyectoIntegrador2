@@ -81,9 +81,10 @@ render(){
 
 const style = StyleSheet.create({
     imagen:{
-        height: 1200,
-        width: 620,
+        height: 500,
+        
         alignContent: 'center'
+
 
     }
 })

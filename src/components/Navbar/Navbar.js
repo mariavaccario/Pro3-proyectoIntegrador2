@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
         height:50
     }, 
     nav: {
+        
         backgroundColor:'rgb(49,47,53)'
     }
 
