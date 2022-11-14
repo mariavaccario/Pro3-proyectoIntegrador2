@@ -15,6 +15,29 @@ class Comments extends Component {
     }
 
 componentDidMount(){
-    
+    db.collection('posts')
+    .doc(this.props.route.paramas.id)
+    .onSnapshot(doc => {
+        this.setState({
+            id: doc.id,
+            data: doc.data()
+        })
+    }) // onSnapshot() entregará un array de documentos que deberemos recorrer para extraer los datos de cada documento con el método data()
 }
+
+addComment(idDoc, text){
+    db.collection('posts')
+    .doc(idDoc)
+    .update({
+        comments: firebase.firestore.FieldValue.arrayUnion ({
+            owner: auth.currentUser.email,
+            createdAt: Date.now(),
+            comment: text
+        })
+    })
 }
+
+
+}
+
+export default Comments
