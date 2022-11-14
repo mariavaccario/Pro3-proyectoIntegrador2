@@ -93,7 +93,7 @@ class Register extends Component{
                         <Text style={style.botonIngresar}>Registrarme</Text>
                     </TouchableOpacity>
 
-                    <Text style={style.textTitle} onPress={()=> this.props.navigation.navigate('Login')}>Ir a login</Text>
+                    <Text style={style.textTitle} onPress={()=> this.props.navigation.navigate('Login')}>Si ya tenes cuenta, logueate aca</Text>
 
                 
             </View>

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Text, TextInput, TouchableOpacity,View, Image} from 'react-native';
 import {auth, db} from '../firebase/config';
+import { FontAwesome, Ionicons, AntDesign, Entypo } from '@expo/vector-icons';
 import MyCamera from '../components/Camera/Camera';
 import {StyleSheet} from 'react-native-web';
 
@@ -8,24 +9,18 @@ import Navbar from '../components/Navbar/Navbar'
 
 
 class NewPost extends Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
             textoPost:'',
             createdAt:'',
             photo:'',
-            showCamera: true,
+            showCamera: false,
         }
     }
 
     createPost(texto, photo){
-        db.collection('users'
-        
-        //.where('owner', '==', auth.currentUser.email)
-        )
-        .onSnapshot(users => {
-
-        if(users.docs.length > 0 ){
+        db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(users => {
             db.collection('posts').add({
                 owner: auth.currentUser.email, 
                 userName: users.docs[0].data().userName,
@@ -37,15 +32,12 @@ class NewPost extends Component{
             })
             .then(() => {
                 this.setState({
-                    textoPost:'', //limpio el texto para que si quiero volver sa subir una foto, no me aparezca la anterior
+                    textoPost:'',
                     showCamera: true,
                 })
                 this.props.navigation.navigate('Home')
             })
             .catch( error => console.log(error))
-        }
-        
-
         })
     }
 
@@ -54,6 +46,13 @@ class NewPost extends Component{
             photo: url,
             showCamera: false,
         })
+
+    }
+
+    camara (){
+        this.setState ({
+            showCamera: true
+        })
     }
 
     render(){
@@ -61,29 +60,39 @@ class NewPost extends Component{
             
             <View>
                 <Navbar/>
-            {
-                this.state.showCamera ?
+            {this.state.showCamera ?
                 <MyCamera onImageUpload={url => this.onImageUpload(url)}/>
                 :
                 <View style={style.contenedor}>
                     <Image style={style.logo}
                     source={require("../../assets/tentate.png")}
                     resizeMode='contain'/>
-                   
-``
-                    
-                    <View style={style.contenedor}>
-                        <TextInput style={style.box} 
-                            placeholder='Escribi lo que pensas'
-                            keyboardType='default'
-                            onChangeText={ text => this.setState({textoPost:text}) }
-                            value={this.state.textoPost}
-                        /> 
-                        <TouchableOpacity onPress={()=>this.createPost(this.state.textoPost, this.state.photo)}>
-                            <Text style={style.botonIngresar}>Subir</Text>
+                       
+                        {this.state.photo !== '' ? 
+                        <>
+                            <Image
+                                style={style.image}
+                                source={{uri: this.state.photo}}
+                            />
+                            <View style={style.contenedor}>
+                                <TextInput style={style.box} 
+                                    placeholder='Que estas comiendo?'
+                                    keyboardType='default'
+                                    onChangeText={ text => this.setState({textoPost:text}) }
+                                    value={this.state.textoPost}
+                                /> 
+                                <TouchableOpacity onPress={()=>this.createPost(this.state.textoPost, this.state.photo)}>
+                                    <Text style={style.botonIngresar}>Subir</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </>
+                        : 
+                        <TouchableOpacity onPress={() => this.camara()}>
+                            <Text><AntDesign name="camerao" size={24} color="white" /> Agregar foto</Text>
                         </TouchableOpacity>
-                    </View>
+                        }
                 </View>
+            
             }
             </View>
         )
@@ -127,6 +136,12 @@ const style = StyleSheet.create({
         borderRadius: 3,
 
     },
+    image: {
+        width: 400,
+        height: 400,
+        marginVertical: 10,
+        
+    }
 })
 
 export default NewPost;

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Camera } from 'expo-camera';
 import {storage} from '../../firebase/config';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons'; 
 
 class MyCamera extends Component{
     constructor(props){
@@ -58,7 +60,7 @@ class MyCamera extends Component{
 
     render(){
         return(
-            <View>
+            <View style={styles.todo}>
             {
                 this.state.permissions ? 
                     this.state.showCamera ?
@@ -69,7 +71,7 @@ class MyCamera extends Component{
                             ref={metodosDeCamara => this.metodosDeCamara = metodosDeCamara }
                         />
                         <TouchableOpacity style={styles.button} onPress={()=>this.sacarFoto()}>
-                            <Text>Sacar foto</Text>
+                            <Entypo style={styles.sacarFoto}name="circle" size={50} color="black" />
                         </TouchableOpacity>
                     </View>
                     :
@@ -79,12 +81,13 @@ class MyCamera extends Component{
                             source={{uri: this.state.urlTemporal}}
                             resizeMode='cover'
                         />
-                        <TouchableOpacity style={styles.button} onPress={()=>this.cancelar()}>
-                            <Text>Cancelar</Text>
+                        <TouchableOpacity  style={styles.subir}onPress={()=>this.guardarFoto()}>
+                            <Text>Subir</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={()=>this.guardarFoto()}>
-                            <Text>Aceptar</Text>
+                        <TouchableOpacity  style={styles.subir}onPress={()=>this.cancel()}>
+                            <Text>Sacar foto otra vez</Text>
                         </TouchableOpacity>
+                        
                     </View>
 
                 :
@@ -97,20 +100,44 @@ class MyCamera extends Component{
 }
 
 const styles = StyleSheet.create({
+    todo:{
+        
+    },
+    
+    
     cameraBody: {
-        height: '80vh',
+        height: 500,
     },
     button:{
         height: '20vh',
-        borderColor: '#ccc',
-        borderWidth: 1,
         padding: 5,
-        borderRadius: 4,
         marginTop: 20
     },
     preview:{
-        height:'40vh'
+        height:500,
+        //marginVertical: 100,
+        marginBottom: 3
+    },
+    subir:{
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderColor: 'black',
+        marginHorizontal: 100,
+        marginVertical: 5,
+        padding: 15,
+        textAlign: 'center',
+        color: 'white',
+        borderRadius: 7,
+    },
+    
+    sacarFoto:{
+        marginHorizontal: 100,
+        marginVertical:5,
+        padding: 15,
+        textAlign: 'center',
+        
     }
+
 }) 
 
 export default MyCamera;

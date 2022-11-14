@@ -24,13 +24,13 @@ function TabNavigator(){
                 name='NewPost'
                 component = {NewPost}
                 options={
-                    {tabBarIcon: ()=> <AntDesign name="pluscircleo" size={24} color="black" /> }
+                    {tabBarIcon: ()=> <AntDesign name="pluscircleo" size={24} color="black" />, headerShown: false }
                 }/>
             <Tab.Screen
                 name='Profile'
                 component = {Profile}
                 options={
-                    {tabBarIcon: ()=> <AntDesign name="user" size={24} color="black" /> }
+                    {tabBarIcon: ()=> <AntDesign name="user" size={24} color="black" />, headerShown: false }
                 }/>
         
         </Tab.Navigator>
