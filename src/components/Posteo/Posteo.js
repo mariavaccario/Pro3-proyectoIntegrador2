@@ -3,6 +3,7 @@ import {Text, TouchableOpacity, StyleSheet, View, Image} from 'react-native';
 
 import firebase from 'firebase';
 import {auth, db} from '../../firebase/config';
+import { FontAwesome5 } from '@expo/vector-icons'; 
 
 
 class Posteo extends Component {
@@ -10,7 +11,8 @@ class Posteo extends Component {
         super(props)
         this.state = {
             numeroLikes: this.props.postData.data.likes.length,
-            userLike: false //checkea si el loguado esta en el array de likes o no. si mi email 
+            userLike: false, 
+            isMyPost: false
         }
     }
 
@@ -23,20 +25,21 @@ class Posteo extends Component {
                 userLike: true
             })
         }
+        this.Verificar();
     }
 
     meGusta(){
         db.collection('posts')
-            .doc(this.props.postData.id) //identifico el documento
+            .doc(this.props.postData.id) 
             .update(
                 {
-                    likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) //es el array que quiero modificar  y falta traer el usuario que esta logueado
+                    likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) 
                 }
-            ) //lo que quiero agregar
+            ) 
             .then(()=> this.setState({
                 numeroLikes: this.state.numeroLikes + 1, userLike: true
                 })
-            ) //lo que quiero hacer despues de modificar un array
+            ) 
             .catch(error => console.log(error))
     }
         
@@ -45,6 +48,19 @@ class Posteo extends Component {
         
     }
 
+    borrarPosteo() {
+        db.collection("posts").doc(this.props.postData.id).delete().then(() => {
+            console.log("Document successfully deleted!");
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
+    }
+
+    Verificar(){
+        this.setState({
+            isMyPost: this.props.postData.data.owner === auth.currentUser.email
+        })
+    }
 
 render(){
     return(
@@ -62,11 +78,7 @@ render(){
                 <Text>No me gusta</Text>
             </TouchableOpacity>
 
-
-        }
-
-           
-            
+        }   
             <Text>{this.state.numeroLikes.likes} me gusta</Text>
             <Text>
                 {this.props.postData.data.userName}
@@ -80,6 +92,12 @@ render(){
             {id:this.props.id}
             )}>
             <Text>Agregar comentario</Text>
+
+            {this.state.isMyPost ? (
+                    <TouchableOpacity onPress={() => this.borrarPosteo()}>
+            <FontAwesome5 name="trash" size={24} color="black" />
+            </TouchableOpacity>
+                ) : null}
           </TouchableOpacity>
        </View>
        
