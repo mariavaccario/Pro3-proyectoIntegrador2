@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     },
     
     cameraBody: {
-        height: '75%',
+        height: 400,
     },
     button:{
         height: '20%',
