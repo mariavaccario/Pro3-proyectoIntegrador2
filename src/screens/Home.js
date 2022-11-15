@@ -53,9 +53,9 @@ class Home extends Component {
                 <Navbar />
 
                 
-                <Image style = {style.logo} 
+                {/* <Image style = {style.logo} 
                     source={require("../../assets/tentate.png")}
-                    resizeMode='contain'/>
+                    resizeMode='contain'/> */}
 
                 <FlatList style={style.fondo}
                     data={this.state.posts}

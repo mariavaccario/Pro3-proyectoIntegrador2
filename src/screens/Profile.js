@@ -33,7 +33,7 @@ class Profile extends Component{
     componentDidMount(){
         //this.traerPosteosUser.bind(this);
         this.traerInfoUser();
-        this.trarPosteosUser();
+        this.traerPosteosUser();
 
     }
 
@@ -42,6 +42,7 @@ class Profile extends Component{
             docs => {
                 docs.forEach( doc=> {
                     const usuario = doc.data();
+                    console.log(usuario);
                     this.setState({
                         idUsuario: doc.id,
                         userName: usuario.usrrName,
@@ -54,7 +55,7 @@ class Profile extends Component{
         )
     }
 
-    traertPosteosUser(){
+    traerPosteosUser(){
         db.collection('users').where('owner', '==', auth.currentUser.email).orderBy('createdAt', 'desc').onSnapshot(
             docs =>{
                 let posteos = [];
@@ -85,30 +86,30 @@ class Profile extends Component{
             .catch(error => console.log(error))
     }
 
-    editarPerfil(){
-        if(this.state.contraNueva !==''){
-            auth.signInWithEmailAndPassword(auth.currentUser.email, this.state.contra)
+//     editarPerfil(){
+//         if(this.state.contraNueva !==''){
+//             auth.signInWithEmailAndPassword(auth.currentUser.email, this.state.contra)
 
-            .then(res =>   {
-                const usuario = auth.currentUser;
-                usuario.updatePassword(
-                    this.state.contraNueva
-                )
-                .then(res => {
-                    this.updateInfoProfile();
+//             .then(res =>   {
+//                 const usuario = auth.currentUser;
+//                 usuario.updatePassword(
+//                     this.state.contraNueva
+//                 )
+//                 .then(res => {
+//                     this.updateInfoProfile();
 
-                })
+//                 })
 
-                .catch(error => console.log(error))
+//                 .catch(error => console.log(error))
 
-            })
-            .catch(error => this.setState({
-                error: error.message
-            }))
-    } else {
-        this.updateInfoProfile();
-    }
-}
+//             })
+//             .catch(error => this.setState({
+//                 error: error.message
+//             }))
+//     } else {
+//         this.updateInfoProfile();
+//     }
+// }
 
 render(){
     return(
@@ -125,7 +126,7 @@ render(){
             <FlatList
                 data= {this.state.posteosUser}
                 keyExtractor={onePost => onePost.id.toString()}
-                renderItem= {({item})=> <Posteo postData={item} refrescarPosts={this.traertPosteosUser}/>}
+                renderItem= {({item})=> <Posteo postData={item} refrescarPosts={this.traerPosteosUser}/>}
             
 
             />

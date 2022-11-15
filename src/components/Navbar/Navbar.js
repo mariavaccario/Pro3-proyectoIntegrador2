@@ -18,7 +18,8 @@ function Navbar(){
 const styles = StyleSheet.create({
     logo:{
         height:100,
-        width:'100%' 
+        width:'100%',
+        padding: 10
     }, 
     nav: {  
         backgroundColor:'rgb(49,47,53)'

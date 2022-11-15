@@ -7,6 +7,8 @@ import { View,
          StyleSheet,
         Image } from 'react-native';
 
+import Camera from '../components/Camera/Camera'
+
 class Register extends Component{
     constructor(){
         super()
@@ -15,7 +17,8 @@ class Register extends Component{
             pass: '',
             userName: '',
             bio: '',
-            errors: ''
+            errors: '', 
+            foto: ''
         }
     }
 
@@ -27,13 +30,14 @@ class Register extends Component{
         }})
     }
 
-    registerUser(email, pass, userName, bio){
+    registerUser(email, pass, userName, bio, foto){
         auth.createUserWithEmailAndPassword(email, pass)
         .then( res => {
             db.collection('users').add({
                 owner: email,
                 userName: userName,
                 bio: bio,
+                foto: foto,
                 createdAt: Date.now()
             })
 
@@ -53,6 +57,14 @@ class Register extends Component{
         })
 
         .catch(error=> console.log(error))
+    }
+
+    onImageUpload(url) {
+        console.log(url)
+        this.setState({
+            foto: url,
+            showCamera: false,
+        })
     }
 
     render(){
@@ -88,6 +100,17 @@ class Register extends Component{
                         onChangeText={ text => this.setState({bio:text}) }
                         value={this.state.bio}
                     />   
+
+                    {
+                        this.state.showCamera ?
+                        <View style={{width: '80vw', heigth: '80vh'}}>
+                            <Camera onImageUpload={url => this.onImageUpload(url)}/> 
+                        </View> 
+                        :
+                        <TouchableOpacity onPress={()=> this.setState({showCamera:true})}>
+                            <Text style={style.camera}>Subir foto de perfil</Text>
+                        </TouchableOpacity>
+                    }
 
                     <TouchableOpacity onPress={()=>this.registerUser(this.state.email, this.state.pass, this.state.userName, this.state.bio)}>
                         <Text style={style.botonIngresar}>Registrarme</Text>

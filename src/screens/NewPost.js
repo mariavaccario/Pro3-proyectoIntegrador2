@@ -62,7 +62,7 @@ class NewPost extends Component{
             {this.state.showCamera ?
                 <MyCamera onImageUpload={url => this.onImageUpload(url)}/>
                 :
-                <View>
+                <View style={style.contenedorChico}>
                        
                         {this.state.photo !== '' ? 
                         <>
@@ -99,9 +99,12 @@ class NewPost extends Component{
 const style = StyleSheet.create({
     
     contenedor:{
-        backgroundColor: 'white',
-        padding: 15,
+        backgroundColor: 'rgb(242,242,242)',
+        
         color: 'black'
+    },
+    contenedorChico:{
+        padding: 15,
     },
     logo:{
         height:100,
