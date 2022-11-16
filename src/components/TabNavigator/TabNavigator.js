@@ -37,7 +37,7 @@ function TabNavigator(){
                 name="Buscador" 
                 component={ Buscador } 
                 options={ 
-                    {tabBarIcon: ()=> <AntDesign name="search1" size={24} color="black" />, headerShown: false }
+                    {tabBarIcon: ()=> <FontAwesome name="search" size={24} color="black" />, headerShown: false }
                 }/>
         
         </Tab.Navigator>
