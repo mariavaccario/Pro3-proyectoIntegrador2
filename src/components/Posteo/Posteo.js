@@ -11,7 +11,7 @@ class Posteo extends Component {
         super(props)
         this.state = {
             numeroLikes: this.props.postData.data.likes.length,
-            userLike: false, //checkea si el loguado esta en el array de likes o no. si mi email 
+            userLike: false, 
             comments: this.props.postData.data.comments
         }
     }
@@ -69,11 +69,15 @@ render(){
                  source= {{uri: this.props.postData.data.photo}}
                  resizeMode='contain'   
             />
-         
-            <Text style={style.userBio}>
-                {this.props.postData.data.userName}: {this.props.postData.data.textoPost}
+         <View style={style.contenedorUserBio}>
+            <Text style={style.user}>
+                {this.props.postData.data.userName}
             </Text>
-            <View style={style.iconos}>
+            <Text>
+                {this.props.postData.data.textoPost}
+            </Text>
+        </View>
+            <View style={style.likes}>
             <Text style={style.nroLikes}>{this.state.numeroLikes.likes}10 <Feather name="heart" size={20} color="black" /></Text>
             {/* {this.state.userLike ?
                 <TouchableOpacity onPress={()=> this.meGusta()}>
@@ -84,17 +88,18 @@ render(){
                     <Text>No me gusta</Text>
                 </TouchableOpacity>
 
-                    }   */}
+                    }   */}  
+          </View>
+        <View style={style.iconos}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments',{id:this.props.postData.id})}>
-            <Text>Comentarios</Text></TouchableOpacity>
-
+                <Text>Comentarios</Text>
+            </TouchableOpacity>
             {this.state.isMyPost ? (
                     <TouchableOpacity onPress={() => this.borrarPosteo()}>
             <FontAwesome5 name="trash" size={18} color="black" style={style.borrar}/>
             </TouchableOpacity>
                 ) : null}
-          
-          </View>
+        </View>
        </View>
        
     )
@@ -112,13 +117,23 @@ const style = StyleSheet.create({
         borderRadius: 7, 
         backgroundColor: 'white'
     }, 
-    userBio:{
-        marginHorizontal: 10
+    user:{
+        marginLeft: 10, 
+        marginRight: 4,
+        fontWeight: 'bold'
     }, 
+    contenedorUserBio:{
+        flexDirection: 'row',
+    },
     iconos:{
         flexDirection: 'row', 
         justifyContent: 'space-between', 
-        margin: 10
+        marginHorizontal: 10, 
+        marginBottom: 10
+    }, 
+    likes:{
+        marginHorizontal: 10,
+        marginVertical: 5
     }
 })
 

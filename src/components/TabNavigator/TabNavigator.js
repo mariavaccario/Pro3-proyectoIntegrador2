@@ -18,27 +18,32 @@ function TabNavigator(){
                 component = {Home}
                 options={
                     {tabBarIcon: ()=> <Entypo name="home" size={24} color="black" />, headerShown: false}
-                }/>
+                }
+            />
 
              <Tab.Screen
                 name='NewPost'
                 component = {NewPost}
                 options={
                     {tabBarIcon: ()=> <AntDesign name="pluscircle" size={24} color="black" />, headerShown: false }
-                }/>
-            <Tab.Screen
-                name='Profile'
-                component = {Profile}
-                options={
-                    {tabBarIcon: ()=> <FontAwesome name="user" size={24} color="black" />, headerShown: false }
-                }/>
-            
-            <Tab.Screen 
+                }
+            />
+           <Tab.Screen 
                 name="Buscador" 
                 component={ Buscador } 
                 options={ 
                     {tabBarIcon: ()=> <FontAwesome name="search" size={24} color="black" />, headerShown: false }
-                }/>
+                }
+            /> 
+                <Tab.Screen
+                name='Profile'
+                component = {Profile}
+                options={
+                    {tabBarIcon: ()=> <FontAwesome name="user" size={24} color="black" />, headerShown: false }
+                }
+            />
+            
+            
         
         </Tab.Navigator>
     )

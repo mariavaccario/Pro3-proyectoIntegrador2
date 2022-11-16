@@ -15,8 +15,8 @@ import Posteo from '../components/Posteo/Posteo';
 import Navbar from '../components/Navbar/Navbar'
 
 class Profile extends Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
             posteosUser: [],
             userName: '',
@@ -33,13 +33,6 @@ class Profile extends Component{
     }
 
     componentDidMount(){
-        //this.traerPosteosUser.bind(this);
-        this.traerInfoUser();
-        this.traerPosteosUser();
-
-    }
-
-    traerInfoUser(){
         db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(
             docs => {
                 docs.forEach( doc=> {
@@ -54,9 +47,6 @@ class Profile extends Component{
                 });
             }
         )
-    }
-
-    traerPosteosUser(){
         db.collection('posts').where('owner', '==', auth.currentUser.email).orderBy('createdAt', 'desc').onSnapshot(
             docs =>{
                 let posteos = [];
@@ -71,7 +61,7 @@ class Profile extends Component{
                 })
             }
         )
-    }
+        }
     logout() {
         auth.signOut()
             .then(() => this.props.navigation.navigate("Login"))
@@ -124,20 +114,28 @@ render(){
                 <Text style={style.logout}><MaterialIcons name="logout" size={24} color="black" /></Text>
             </TouchableOpacity>  */}
             
-            <Text style={style.user}><AntDesign name="adduser" size={70} color="black" /></Text>
-            <View style={style.info}>            
-                <Text>{this.state.userName}</Text>
-                <Text>{this.state.email}</Text>
-                <Text>{this.state.bio}</Text>
-                <Text>Cantidad de posteos: {this.state.posteosUser.length}</Text>
-
-                <Text><Fontisto name="player-settings" size={24} color="black" /></Text>
+            <View style={style.contenedor2}>
+                <Text style={style.user}><AntDesign name="adduser" size={70} color="black" /></Text>
+                <View style={style.info}>            
+                    <Text>{this.state.userName}</Text>
+                    <Text>{this.state.email}</Text>
+                    <Text>{this.state.bio}</Text>
+                    <Text>Cantidad de posteos: {this.state.posteosUser.length}</Text> 
+                    <View style={ style.icons}>
+                        <Text style={style.logout}><Fontisto name="player-settings" size={20} color="black" /></Text>
+                        <TouchableOpacity onPress={() => this.logout()} >   
+                            <Text style={style.logout}><MaterialIcons name="logout" size={20} color="black" /></Text>
+                        </TouchableOpacity> 
+                    </View>
+                </View>
             </View>
 
-            <Image style = {style.logo} 
+            
+            {/* <Text style={style.misPosteos}>Mis posteos:</Text> */}
+            {/* <Image style = {style.logo} 
                     source={require("../../assets/posts.png")}
                     resizeMode='contain'
-            />
+            /> */}
 
             <FlatList
                 data= {this.state.posteosUser}
@@ -146,13 +144,6 @@ render(){
                 // refrescarPosts={this.traerPosteosUser}
 
             />
-            
-            <TouchableOpacity onPress={() => this.logout()} >   
-                <Text style={style.logout}><MaterialIcons name="logout" size={24} color="black" /></Text>
-            </TouchableOpacity> 
-
-            
-
         </View>
     )
 }}
@@ -160,22 +151,32 @@ const style = StyleSheet.create({
     contenedor:{
         flex:1,
     },
+    contenedor2:{
+        flexDirection: 'row',
+        marginTop:20
+    },
     info:{
         textAlign: 'center',
-
+        marginTop: 5
     }, 
     user:{
         textAlign: 'center', 
-        marginBottom: 20,
-        marginTop: 10, 
-        marginHorizontal: 145,  
+        marginTop: 10,
+        marginBottom: 30,
+        marginHorizontal: 50,  
         borderRadius: 40, 
         borderColor: 'black', 
         borderWidth: 2, 
+        paddingHorizontal: 10, 
+        alignItems: 'center', 
+        backgroundColor: 'white'
     }, 
+    icons: {
+        flexDirection: 'row', 
+        justifyContent: 'center'
+    },
     logout:{
         margin: 10, 
-        textAlign: 'right'
     }, 
     logo: {
         height:100,
@@ -183,8 +184,9 @@ const style = StyleSheet.create({
         padding: 10,
         marginTop: 20,
         marginHorizontal: '5%',
-        
-        
+    }, 
+    misPosteos:{
+        marginHorizontal: 22
     }
 })
 export default Profile;
