@@ -1,7 +1,7 @@
 import { grey } from "kleur";
 import React, {Component} from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native"
-import { Entypo, AntDesign } from '@expo/vector-icons';
+import { Entypo, AntDesign, FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from '../../screens/Home';
@@ -23,13 +23,13 @@ function TabNavigator(){
                 name='NewPost'
                 component = {NewPost}
                 options={
-                    {tabBarIcon: ()=> <AntDesign name="pluscircleo" size={24} color="black" />, headerShown: false }
+                    {tabBarIcon: ()=> <AntDesign name="pluscircle" size={24} color="black" />, headerShown: false }
                 }/>
             <Tab.Screen
                 name='Profile'
                 component = {Profile}
                 options={
-                    {tabBarIcon: ()=> <AntDesign name="user" size={24} color="black" />, headerShown: false }
+                    {tabBarIcon: ()=> <FontAwesome name="user" size={24} color="black" />, headerShown: false }
                 }/>
         
         </Tab.Navigator>

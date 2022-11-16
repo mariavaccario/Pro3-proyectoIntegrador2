@@ -100,30 +100,24 @@ class MyCamera extends Component{
 
 const styles = StyleSheet.create({
     todo:{
-        backgroundColor: 'white'
+        backgroundColor: 'rgb(242,242,242)'
     },
     
     cameraBody: {
-        height: 400,
+        height: '300%',
+        marginTop: 20
     },
     button:{
         height: '20%',
         padding: 5,
-        marginTop: 20
+        marginTop: 40
     },
     preview:{
-        height:350,
-        marginTop: 30,
+        height:'197%',
+        marginTop: 40,
         marginBottom: 3
     },
     subir:{
-        // marginTop: 30,
-        // borderColor: '#444',
-        // borderWidth: 1,
-        // paddingVertical:6,
-        // borderRadius: 4,
-        // backgroundColor:'rgb(49,47,53)'
-
         borderStyle: 'solid',
         borderWith: 1,
         borderColor: 'black',

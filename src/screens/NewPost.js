@@ -66,26 +66,32 @@ class NewPost extends Component{
                        
                         {this.state.photo !== '' ? 
                         <>
+                            <Text style={style.uno}>1.</Text>
                             <Image
                                 style={style.image}
                                 source={{uri: this.state.photo}}
                             />
                             <View >
+                                <Text style={style.uno}>2.</Text>
                                 <TextInput style={style.box} 
                                     placeholder='Que estas comiendo?'
                                     keyboardType='default'
                                     onChangeText={ text => this.setState({textoPost:text}) }
                                     value={this.state.textoPost}
                                 /> 
+                                <Text style={style.uno}>3.</Text>
                                 <TouchableOpacity onPress={()=>this.createPost(this.state.textoPost, this.state.photo)}>
                                     <Text style={style.botonIngresar}>Subir</Text>
                                 </TouchableOpacity>
                             </View>
                         </>
                         : 
+                        <>
+                        <Text style={style.uno}>1.</Text>
                         <TouchableOpacity  style={style.button} onPress={() => this.camara()}>
                             <Text style={style.buttonText}> <AntDesign name="camerao" size={24} color="white" /> Agregar foto </Text>
                         </TouchableOpacity>
+                        </>
                         }
                 </View>
             
@@ -116,7 +122,7 @@ const style = StyleSheet.create({
         padding: 15,
         margin: 3,
         borderColor: 'black',
-        backgroundColor: 'rgb(243,245,243)',
+        backgroundColor: 'white',
         borderRadius: 7
 
     },
@@ -131,9 +137,6 @@ const style = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         borderRadius: 3,
-
-        
-
     },
     image: {
         height: 400,
@@ -141,13 +144,21 @@ const style = StyleSheet.create({
         
     },
     button:{
-        marginTop: 40,
+        marginTop: 20,
         borderColor: '#444',
         borderWidth: 1,
         paddingVertical:8,
         borderRadius: 4,
         backgroundColor:'rgb(49,47,53)'
         
+    },
+    uno:{
+        fontSize: 20, 
+        borderWidth: 1, 
+        borderRadius: 30, 
+        paddingHorizontal: 15,
+        paddingVertical: 10, 
+        marginRight: 300
     },
     buttonText:{
         fontSize:20,
