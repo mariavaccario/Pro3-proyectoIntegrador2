@@ -3,6 +3,7 @@ import {Text, TouchableOpacity, StyleSheet, View, Image} from 'react-native';
 
 import firebase from 'firebase';
 import {auth, db} from '../../firebase/config';
+import { FontAwesome5, Feather } from '@expo/vector-icons'; 
 
 
 class Posteo extends Component {
@@ -24,20 +25,21 @@ class Posteo extends Component {
                 userLike: true
             })
         }
+        this.Verificar();
     }
 
     meGusta(){
         db.collection('posts')
-            .doc(this.props.postData.id) //identifico el documento
+            .doc(this.props.postData.id) 
             .update(
                 {
-                    likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) //es el array que quiero modificar  y falta traer el usuario que esta logueado
+                    likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) 
                 }
-            ) //lo que quiero agregar
+            ) 
             .then(()=> this.setState({
                 numeroLikes: this.state.numeroLikes + 1, userLike: true
                 })
-            ) //lo que quiero hacer despues de modificar un array
+            ) 
             .catch(error => console.log(error))
     }
         
@@ -46,41 +48,56 @@ class Posteo extends Component {
         
     }
 
+    borrarPosteo() {
+        db.collection("posts").doc(this.props.postData.id).delete().then(() => {
+            console.log("Document successfully deleted!");
+        }).catch((error) => {
+            console.error("Error removing document: ", error);
+        });
+    }
+
+    Verificar(){
+        this.setState({
+            isMyPost: this.props.postData.data.owner === auth.currentUser.email
+        })
+    }
 
 render(){
     return(
-       <View>
+       <View style={style.contenedor}>
             <Image style={style.imagen}
                  source= {{uri: this.props.postData.data.photo}}
                  resizeMode='contain'   
             />
-        {this.state.userLike ?
-             <TouchableOpacity onPress={()=> this.meGusta()}>
-                <Text>Me gusta</Text>
-            </TouchableOpacity>
-            :
-            <TouchableOpacity onPress={()=> this.noMeGusta()}>
-                <Text>No me gusta</Text>
-            </TouchableOpacity>
-
-
-        }
-
-           
-            
-            <Text>{this.state.numeroLikes.likes} me gusta</Text>
-            <Text>
-                {this.props.postData.data.userName}
+         
+            <Text style={style.userBio}>
+                {this.props.postData.data.userName}: {this.props.postData.data.textoPost}
             </Text>
-            <Text>
-               {this.props.postData.data.textoPost}
-            </Text>
+            <View style={style.iconos}>
+            <Text style={style.nroLikes}>{this.state.numeroLikes.likes}10 <Feather name="heart" size={20} color="black" /></Text>
+            {/* {this.state.userLike ?
+                <TouchableOpacity onPress={()=> this.meGusta()}>
+                    <Text>Me gusta</Text>
+                </TouchableOpacity>
+                :
+                <TouchableOpacity onPress={()=> this.noMeGusta()}>
+                    <Text>No me gusta</Text>
+                </TouchableOpacity>
 
+                    }   */}
             <TouchableOpacity onPress={() => this.props.navigation.navigate(
-            'Comments', {id:this.props.id})}>
-            </TouchableOpacity>
-          <Text>Comentarios: {this.state.comments.length}</Text>
+            'Comments',
+            {id:this.props.id}
+            )}>
+            {/* <Text>Agregar comentario</Text> */}
 
+            {this.state.isMyPost ? (
+                    <TouchableOpacity onPress={() => this.borrarPosteo()}>
+            <FontAwesome5 name="trash" size={18} color="black" style={style.borrar}/>
+            </TouchableOpacity>
+                ) : null}
+          </TouchableOpacity>
+          </View>
        </View>
        
     )
@@ -89,7 +106,22 @@ render(){
 
 const style = StyleSheet.create({
     imagen:{
-        height: 300,
+        height: 260,
+        marginHorizontal: 10,
+        marginVertical: 0
+    }, 
+    contenedor:{
+        margin: 20, 
+        borderRadius: 7, 
+        backgroundColor: 'white'
+    }, 
+    userBio:{
+        marginHorizontal: 10
+    }, 
+    iconos:{
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        margin: 10
     }
 })
 

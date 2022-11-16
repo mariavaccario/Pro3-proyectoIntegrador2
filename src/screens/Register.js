@@ -7,6 +7,8 @@ import { View,
          StyleSheet,
         Image } from 'react-native';
 
+import Camera from '../components/Camera/Camera'
+
 class Register extends Component{
     constructor(){
         super()
@@ -15,7 +17,8 @@ class Register extends Component{
             pass: '',
             userName: '',
             bio: '',
-            errors: ''
+            errors: '', 
+            foto: ''
         }
     }
 
@@ -27,13 +30,14 @@ class Register extends Component{
         }})
     }
 
-    registerUser(email, pass, userName, bio){
+    registerUser(email, pass, userName, bio, foto){
         auth.createUserWithEmailAndPassword(email, pass)
         .then( res => {
             db.collection('users').add({
                 owner: email,
                 userName: userName,
                 bio: bio,
+                foto: foto,
                 createdAt: Date.now()
             })
 
@@ -53,6 +57,14 @@ class Register extends Component{
         })
 
         .catch(error=> console.log(error))
+    }
+
+    onImageUpload(url) {
+        console.log(url)
+        this.setState({
+            foto: url,
+            showCamera: false,
+        })
     }
 
     render(){
@@ -116,7 +128,7 @@ const style= StyleSheet.create({
 
     box:{
         borderStyle: 'solid',
-        borderWith: 3,
+        borderWidth: 1,
         padding: 15,
         margin: 3,
         borderColor: 'black',
@@ -136,7 +148,7 @@ const style= StyleSheet.create({
 
     botonIngresar: {
         borderStyle: 'solid',
-        borderWith: 1,
+        borderWidth: 1,
         borderColor: 'black',
         backgroundColor: 'rgb(49,47,53)',
         marginHorizontal: 100,

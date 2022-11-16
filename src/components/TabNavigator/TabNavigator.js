@@ -35,26 +35,5 @@ function TabNavigator(){
         </Tab.Navigator>
     )
 }
-const styles = StyleSheet.create({
-    iconos:{
-        height:50,
-        //flexDirection: 'row',
-
-    }, 
-    //view: {
-        //display: 'flex',
-        //backgroundColor:'rgb(49,47,53)',
-        //flex: 1,
-    //},
-    nav: {
-        diplay: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        backgroundColor:'rgb(49,47,53)',
-        justifyContent:'space-between',
-
-    }
-
-})
 
 export default TabNavigator;

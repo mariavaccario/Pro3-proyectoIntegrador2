@@ -14,10 +14,9 @@ class Login extends Component {
         this.state = {
             email:'',
             pass:'',
-            errors:{
-                field:'', 
-                message: ''
-            }
+            field:'', 
+            message: ''
+            
         }
     }
 
@@ -37,23 +36,26 @@ class Login extends Component {
             })
             .catch(error => {
                 console.log(error)
-                let errorField = '' 
-                if (error.code === 'auth/invalid-email'){
-                    errorField='email'
-                }else if (error.code === 'auth/invalid-password'){
-                    errorField='password'
+                if (error.code == 'auth/invalid-email'){
+                    this.setState({
+                        field: 'email', 
+                        message: 'Email incorrecto'
+                
+                    })
+                }else if (error.code == 'auth/wrong-password'){
+                    this.setState({
+                        field: 'password', 
+                        message: 'Contraseña incorrecta'
+                
+                    })
                 }
-                this.setState({
-                    errors:{
-                        field: errorField, 
-                        message: error.message
-                    }
-                })
+                
             })
     }
 
 
     render(){
+        console.log(this.state.message + this.state.field)
         return(
             <View style={style.contenedor} >
                  <Image style = {style.logo} 
@@ -63,32 +65,52 @@ class Login extends Component {
                 
                 
                 <View>
-
-                   <TextInput style={style.box} 
+                {this.state.field == 'email' ?
+                <>
+                <TextInput style={style.boxM} 
+                    placeholder='email'
+                    keyboardType='email-address'
+                    onChangeText={ text => this.setState({email:text, field: ''}) }
+                    value={this.state.email}
+                 /> 
+                    <Text style={style.msjE}>{this.state.message}</Text>
+                 </>
+                 :
+                 <TextInput style={style.box} 
                        placeholder='email'
                        keyboardType='email-address'
                        onChangeText={ text => this.setState({email:text}) }
                        value={this.state.email}
                     /> 
-                    {this.state.errorField === 'email' && (
-                        <Text>{this.state.errors.message}</Text>
-                    )}
-                    <TextInput style={style.box}
-                        placeholder='password'
-                        keyboardType='default'
-                        secureTextEntry={true}
-                        onChangeText={ text => this.setState({pass:text}) }
-                        value={this.state.pass}
-                    />  
-                    {this.state.errorField === 'password' && (
-                        <Text>{this.state.errors.message}</Text>
-                    )}
+                }
 
+                {this.state.field == 'password'?
+                <>
+                <TextInput style={style.boxM}
+                    placeholder='password'
+                    keyboardType='default'
+                    secureTextEntry={true}
+                    onChangeText={ text => this.setState({pass:text, field: ''}) }
+                    value={this.state.pass}
+                />  
+                <Text style={style.msjE}>{this.state.message}</Text>
+                </>
+                :
+                <TextInput style={style.box}
+                    placeholder='password'
+                    keyboardType='default'
+                    secureTextEntry={true}
+                    onChangeText={ text => this.setState({pass:text}) }
+                    value={this.state.pass}
+                />  
+                }
+                
             </View> 
 
                     <TouchableOpacity onPress={()=>this.loginUser(this.state.email, this.state.pass)}>
                         <Text style={style.botonIngresar}>Ingresar</Text>
                     </TouchableOpacity>
+
                     <Text style={style.textTitle}onPress={ () => this.props.navigation.navigate('Register')} >Si no tenes cuenta, registrate aca</Text>
                 
             </View>
@@ -108,13 +130,29 @@ const style= StyleSheet.create({
 
     box:{
         borderStyle: 'solid',
-        borderWith: 3,
+        borderWidth: 1,
         padding: 15,
         margin: 3,
         backgroundColor: 'rgb(243,245,243)',
         borderRadius: 7,
         borderColor: 'black',
-        
+    },
+
+    boxM:{
+        borderStyle: 'solid',
+        borderWidth: 1,
+        padding: 15,
+        margin: 3,
+        backgroundColor: 'rgb(243,245,243)',
+        borderRadius: 7,
+        borderColor: 'red',
+        color: 'red'
+    },
+
+    msjE:{
+        padding: 7,
+        margin: 3,
+        color: 'red', 
 
     },
 
@@ -129,7 +167,7 @@ const style= StyleSheet.create({
 
     botonIngresar: {
         borderStyle: 'solid',
-        borderWith: 1,
+        borderWidth: 1,
         borderColor: 'black',
         backgroundColor: 'rgb(49,47,53)',
         marginHorizontal: 100,

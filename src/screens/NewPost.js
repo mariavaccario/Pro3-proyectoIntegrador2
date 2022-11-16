@@ -62,7 +62,7 @@ class NewPost extends Component{
             {this.state.showCamera ?
                 <MyCamera onImageUpload={url => this.onImageUpload(url)}/>
                 :
-                <View>
+                <View style={style.contenedorChico}>
                        
                         {this.state.photo !== '' ? 
                         <>
@@ -99,9 +99,11 @@ class NewPost extends Component{
 const style = StyleSheet.create({
     
     contenedor:{
-        backgroundColor: 'white',
-        padding: 15,
+        backgroundColor: 'rgb(242,242,242)',
         color: 'black'
+    },
+    contenedorChico:{
+        padding: 15,
     },
     logo:{
         height:100,
@@ -120,7 +122,7 @@ const style = StyleSheet.create({
     },
     botonIngresar: {
         borderStyle: 'solid',
-        borderWith: 1,
+        borderWidth: 1,
         borderColor: 'black',
         backgroundColor: 'rgb(49,47,53)',
         marginHorizontal: 100,
@@ -129,6 +131,8 @@ const style = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         borderRadius: 3,
+
+        
 
     },
     image: {
@@ -143,6 +147,7 @@ const style = StyleSheet.create({
         paddingVertical:8,
         borderRadius: 4,
         backgroundColor:'rgb(49,47,53)'
+        
     },
     buttonText:{
         fontSize:20,

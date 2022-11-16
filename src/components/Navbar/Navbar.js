@@ -9,7 +9,7 @@ function Navbar(){
         <SafeAreaView>
             <View style={styles.nav}>
                 <Image style = {styles.logo} 
-                    source={require("../../../assets/logoBeFoodie.png")}
+                    source={require("../../../assets/befoodie.png")}
                     resizeMode='contain'/>
             </View>
         </SafeAreaView>
@@ -18,7 +18,8 @@ function Navbar(){
 const styles = StyleSheet.create({
     logo:{
         height:100,
-        width:'100%' 
+        width:'100%',
+        padding: 10
     }, 
     nav: {  
         backgroundColor:'rgb(49,47,53)'

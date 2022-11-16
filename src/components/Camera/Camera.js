@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {Camera } from 'expo-camera';
 import {storage} from '../../firebase/config';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons'; 
+import { MaterialIcons, Feather, Entypo } from '@expo/vector-icons';
 
 class MyCamera extends Component{
     constructor(props){
@@ -82,10 +81,10 @@ class MyCamera extends Component{
                             resizeMode='cover'
                         />
                         <TouchableOpacity  style={styles.subir}onPress={()=>this.guardarFoto()}>
-                            <Text>Subir</Text>
+                            <Text style={styles.subirText}><Feather name="upload" size={24} color="white" /> Subir</Text>
                         </TouchableOpacity>
                         <TouchableOpacity  style={styles.subir}onPress={()=>this.cancel()}>
-                            <Text>Sacar foto otra vez</Text>
+                            <Text style={styles.subirText}><Entypo name="cross" size={24} color="white" /> Sacar foto otra vez</Text>
                         </TouchableOpacity>
                         
                     </View>
@@ -101,11 +100,11 @@ class MyCamera extends Component{
 
 const styles = StyleSheet.create({
     todo:{
-        
+        backgroundColor: 'white'
     },
     
     cameraBody: {
-        height: '75%',
+        height: 400,
     },
     button:{
         height: '20%',
@@ -113,20 +112,33 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     preview:{
-        height:'60%',
-        //marginVertical: 100,
+        height:350,
+        marginTop: 30,
         marginBottom: 3
     },
     subir:{
+        // marginTop: 30,
+        // borderColor: '#444',
+        // borderWidth: 1,
+        // paddingVertical:6,
+        // borderRadius: 4,
+        // backgroundColor:'rgb(49,47,53)'
+
         borderStyle: 'solid',
-        borderWidth: 1,
+        borderWith: 1,
         borderColor: 'black',
-        marginHorizontal: 100,
-        marginVertical: 5,
+        backgroundColor: 'rgb(49,47,53)',
+        marginHorizontal: 70,
+        marginVertical: 10,
         padding: 15,
         textAlign: 'center',
         color: 'white',
         borderRadius: 7,
+    },
+    subirText:{
+        fontSize:20,
+        color: '#fff',
+        textAlign: 'center',
     },
     
     sacarFoto:{
