@@ -3,7 +3,7 @@ import {Text, TouchableOpacity, StyleSheet, View, Image} from 'react-native';
 
 import firebase from 'firebase';
 import {auth, db} from '../../firebase/config';
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { FontAwesome5, Feather } from '@expo/vector-icons'; 
 
 
 class Posteo extends Component {
@@ -64,41 +64,40 @@ class Posteo extends Component {
 
 render(){
     return(
-       <View>
+       <View style={style.contenedor}>
             <Image style={style.imagen}
                  source= {{uri: this.props.postData.data.photo}}
                  resizeMode='contain'   
             />
-        {this.state.userLike ?
-             <TouchableOpacity onPress={()=> this.meGusta()}>
-                <Text>Me gusta</Text>
-            </TouchableOpacity>
-            :
-            <TouchableOpacity onPress={()=> this.noMeGusta()}>
-                <Text>No me gusta</Text>
-            </TouchableOpacity>
-
-        }   
-            <Text>{this.state.numeroLikes.likes} me gusta</Text>
-            <Text>
-                {this.props.postData.data.userName}
+         
+            <Text style={style.userBio}>
+                {this.props.postData.data.userName}: {this.props.postData.data.textoPost}
             </Text>
-            <Text>
-               {this.props.postData.data.textoPost}
-            </Text>
+            <View style={style.iconos}>
+            <Text style={style.nroLikes}>{this.state.numeroLikes.likes}10 <Feather name="heart" size={20} color="black" /></Text>
+            {/* {this.state.userLike ?
+                <TouchableOpacity onPress={()=> this.meGusta()}>
+                    <Text>Me gusta</Text>
+                </TouchableOpacity>
+                :
+                <TouchableOpacity onPress={()=> this.noMeGusta()}>
+                    <Text>No me gusta</Text>
+                </TouchableOpacity>
 
+                    }   */}
             <TouchableOpacity onPress={() => this.props.navigation.navigate(
             'Comments',
             {id:this.props.id}
             )}>
-            <Text>Agregar comentario</Text>
+            {/* <Text>Agregar comentario</Text> */}
 
             {this.state.isMyPost ? (
                     <TouchableOpacity onPress={() => this.borrarPosteo()}>
-            <FontAwesome5 name="trash" size={24} color="black" />
+            <FontAwesome5 name="trash" size={18} color="black" style={style.borrar}/>
             </TouchableOpacity>
                 ) : null}
           </TouchableOpacity>
+          </View>
        </View>
        
     )
@@ -107,7 +106,29 @@ render(){
 
 const style = StyleSheet.create({
     imagen:{
-        height: 300,
+        height: 260,
+        marginHorizontal: 10,
+        marginVertical: 0
+    }, 
+    contenedor:{
+        margin: 20, 
+        borderRadius: 7, 
+        backgroundColor: 'white'
+    }, 
+    userBio:{
+        marginHorizontal: 10
+    }, 
+    nroLikes:{
+        marginHorizontal: 10
+    }, 
+    // borrar:{
+    //     textAlign: 'right',
+    //     margin: 10
+    // }, 
+    iconos:{
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        margin: 10
     }
 })
 

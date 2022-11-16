@@ -36,12 +36,6 @@ class Home extends Component {
             }
         )
     }
-
-    logout() {
-        auth.signOut()
-            .then(() => this.props.navigation.navigate("Login"))
-    }
-
     irAComments() {
         this.props.navigation.navigate("Comments")
     }
@@ -62,9 +56,7 @@ class Home extends Component {
                     keyExtractor={onePost => onePost.id.toString()}
                     renderItem={({ item }) => <Posteo postData={item} irAComments={ () => this.irAComments()} />}
                 />
-                <TouchableOpacity onPress={() => this.logout()} >
-                    <Text style={style.logout}>Log out</Text>
-                </TouchableOpacity> 
+                
 
             </View>
 
@@ -74,7 +66,7 @@ class Home extends Component {
 }
 const style = StyleSheet.create({
     fondo: {
-        backgroundColor: 'white'
+        backgroundColor: 'rgb(242,242,242)'
 
     },
     logout: {

@@ -100,7 +100,6 @@ const style = StyleSheet.create({
     
     contenedor:{
         backgroundColor: 'rgb(242,242,242)',
-        
         color: 'black'
     },
     contenedorChico:{

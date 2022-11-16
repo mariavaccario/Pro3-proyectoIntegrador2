@@ -101,17 +101,6 @@ class Register extends Component{
                         value={this.state.bio}
                     />   
 
-                    {
-                        this.state.showCamera ?
-                        <View style={{width: '80vw', heigth: '80vh'}}>
-                            <Camera onImageUpload={url => this.onImageUpload(url)}/> 
-                        </View> 
-                        :
-                        <TouchableOpacity onPress={()=> this.setState({showCamera:true})}>
-                            <Text style={style.camera}>Subir foto de perfil</Text>
-                        </TouchableOpacity>
-                    }
-
                     <TouchableOpacity onPress={()=>this.registerUser(this.state.email, this.state.pass, this.state.userName, this.state.bio)}>
                         <Text style={style.botonIngresar}>Registrarme</Text>
                     </TouchableOpacity>
