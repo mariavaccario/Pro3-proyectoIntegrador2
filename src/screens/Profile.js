@@ -10,7 +10,7 @@ import {
     FlatList,
     Image
 } from 'react-native';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons, Fontisto } from '@expo/vector-icons';
 import Posteo from '../components/Posteo/Posteo';
 import Navbar from '../components/Navbar/Navbar'
 
@@ -129,8 +129,15 @@ render(){
                 <Text>{this.state.userName}</Text>
                 <Text>{this.state.email}</Text>
                 <Text>{this.state.bio}</Text>
-                <Text>Cantidad de posteos:{this.state.posteosUser.length}</Text>
+                <Text>Cantidad de posteos: {this.state.posteosUser.length}</Text>
+
+                <Text><Fontisto name="player-settings" size={24} color="black" /></Text>
             </View>
+
+            <Image style = {style.logo} 
+                    source={require("../../assets/posts.png")}
+                    resizeMode='contain'
+            />
 
             <FlatList
                 data= {this.state.posteosUser}
@@ -169,6 +176,15 @@ const style = StyleSheet.create({
     logout:{
         margin: 10, 
         textAlign: 'right'
+    }, 
+    logo: {
+        height:100,
+        width:'50%',
+        padding: 10,
+        marginTop: 20,
+        marginHorizontal: '5%',
+        
+        
     }
 })
 export default Profile;

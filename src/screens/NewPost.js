@@ -122,7 +122,7 @@ const style = StyleSheet.create({
     },
     botonIngresar: {
         borderStyle: 'solid',
-        borderWith: 1,
+        borderWidth: 1,
         borderColor: 'black',
         backgroundColor: 'rgb(49,47,53)',
         marginHorizontal: 100,
@@ -131,6 +131,8 @@ const style = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         borderRadius: 3,
+
+        
 
     },
     image: {
@@ -145,6 +147,7 @@ const style = StyleSheet.create({
         paddingVertical:8,
         borderRadius: 4,
         backgroundColor:'rgb(49,47,53)'
+        
     },
     buttonText:{
         fontSize:20,

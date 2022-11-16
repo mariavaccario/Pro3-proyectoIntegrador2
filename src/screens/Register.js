@@ -128,7 +128,7 @@ const style= StyleSheet.create({
 
     box:{
         borderStyle: 'solid',
-        borderWith: 3,
+        borderWidth: 1,
         padding: 15,
         margin: 3,
         borderColor: 'black',
@@ -148,7 +148,7 @@ const style= StyleSheet.create({
 
     botonIngresar: {
         borderStyle: 'solid',
-        borderWith: 1,
+        borderWidth: 1,
         borderColor: 'black',
         backgroundColor: 'rgb(49,47,53)',
         marginHorizontal: 100,

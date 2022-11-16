@@ -9,7 +9,7 @@ function Navbar(){
         <SafeAreaView>
             <View style={styles.nav}>
                 <Image style = {styles.logo} 
-                    source={require("../../../assets/logoBeFoodie.png")}
+                    source={require("../../../assets/befoodie.png")}
                     resizeMode='contain'/>
             </View>
         </SafeAreaView>

@@ -117,12 +117,23 @@ const styles = StyleSheet.create({
         marginBottom: 3
     },
     subir:{
-        marginTop: 30,
-        borderColor: '#444',
-        borderWidth: 1,
-        paddingVertical:6,
-        borderRadius: 4,
-        backgroundColor:'rgb(49,47,53)'
+        // marginTop: 30,
+        // borderColor: '#444',
+        // borderWidth: 1,
+        // paddingVertical:6,
+        // borderRadius: 4,
+        // backgroundColor:'rgb(49,47,53)'
+
+        borderStyle: 'solid',
+        borderWith: 1,
+        borderColor: 'black',
+        backgroundColor: 'rgb(49,47,53)',
+        marginHorizontal: 70,
+        marginVertical: 10,
+        padding: 15,
+        textAlign: 'center',
+        color: 'white',
+        borderRadius: 7,
     },
     subirText:{
         fontSize:20,
