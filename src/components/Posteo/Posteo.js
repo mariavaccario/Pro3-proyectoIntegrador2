@@ -10,7 +10,8 @@ class Posteo extends Component {
         super(props)
         this.state = {
             numeroLikes: this.props.postData.data.likes.length,
-            userLike: false //checkea si el loguado esta en el array de likes o no. si mi email 
+            userLike: false, //checkea si el loguado esta en el array de likes o no. si mi email 
+            comments: this.props.postData.data.comments
         }
     }
 
@@ -76,11 +77,10 @@ render(){
             </Text>
 
             <TouchableOpacity onPress={() => this.props.navigation.navigate(
-            'Comments',
-            {id:this.props.id}
-            )}>
-            <Text>Agregar comentario</Text>
-          </TouchableOpacity>
+            'Comments', {id:this.props.id})}>
+            </TouchableOpacity>
+          <Text>Comentarios: {this.state.comments.length}</Text>
+
        </View>
        
     )
