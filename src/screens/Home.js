@@ -36,9 +36,9 @@ class Home extends Component {
             }
         )
     }
-    irAComments() {
-        this.props.navigation.navigate("Comments")
-    }
+   // irAComments() {
+     //   this.props.navigation.navigate("Comments")
+    //}
 
     render() {
         console.log(this.state.posts);

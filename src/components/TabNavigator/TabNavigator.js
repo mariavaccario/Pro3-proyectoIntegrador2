@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../../screens/Home';
 import NewPost from '../../screens/NewPost';
 import Profile from '../../screens/Profile';
+import Buscador from '../../screens/Buscador';
 
 function TabNavigator(){
     const Tab = createBottomTabNavigator();
@@ -30,6 +31,13 @@ function TabNavigator(){
                 component = {Profile}
                 options={
                     {tabBarIcon: ()=> <AntDesign name="user" size={24} color="black" />, headerShown: false }
+                }/>
+            
+            <Tab.Screen 
+                name="Buscador" 
+                component={ Buscador } 
+                options={ 
+                    {tabBarIcon: ()=> <AntDesign name="search1" size={24} color="black" />, headerShown: false }
                 }/>
         
         </Tab.Navigator>

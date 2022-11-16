@@ -85,15 +85,15 @@ render(){
                 </TouchableOpacity>
 
                     }   */}
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments',{id:this.props.id})}>
-            <Text>Comentarios: {this.state.comments.length}</Text>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments',{id:this.props.postData.id})}>
+            <Text>Comentarios</Text></TouchableOpacity>
 
             {this.state.isMyPost ? (
                     <TouchableOpacity onPress={() => this.borrarPosteo()}>
             <FontAwesome5 name="trash" size={18} color="black" style={style.borrar}/>
             </TouchableOpacity>
                 ) : null}
-          </TouchableOpacity>
+          
           </View>
        </View>
        
