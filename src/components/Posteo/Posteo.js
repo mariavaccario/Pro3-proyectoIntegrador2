@@ -118,13 +118,6 @@ const style = StyleSheet.create({
     userBio:{
         marginHorizontal: 10
     }, 
-    nroLikes:{
-        marginHorizontal: 10
-    }, 
-    // borrar:{
-    //     textAlign: 'right',
-    //     margin: 10
-    // }, 
     iconos:{
         flexDirection: 'row', 
         justifyContent: 'space-between', 

@@ -10,6 +10,7 @@ import {
     FlatList,
     Image
 } from 'react-native';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import Posteo from '../components/Posteo/Posteo';
 import Navbar from '../components/Navbar/Navbar'
 
@@ -119,10 +120,11 @@ render(){
     return(
         <View style={style.contenedor}>
             <Navbar/>
-            <Image 
-                source={this.state.photo}
-                resizeMode='cover'
-            />
+            {/* <TouchableOpacity onPress={() => this.logout()} >   
+                <Text style={style.logout}><MaterialIcons name="logout" size={24} color="black" /></Text>
+            </TouchableOpacity>  */}
+            
+            <Text style={style.user}><AntDesign name="adduser" size={70} color="black" /></Text>
             <View style={style.info}>            
                 <Text>{this.state.userName}</Text>
                 <Text>{this.state.email}</Text>
@@ -137,10 +139,12 @@ render(){
                 // refrescarPosts={this.traerPosteosUser}
 
             />
-
+            
             <TouchableOpacity onPress={() => this.logout()} >   
-                <Text style={style.logout}>Log out</Text>
+                <Text style={style.logout}><MaterialIcons name="logout" size={24} color="black" /></Text>
             </TouchableOpacity> 
+
+            
 
         </View>
     )
@@ -150,8 +154,21 @@ const style = StyleSheet.create({
         flex:1,
     },
     info:{
-        alignContent: 'center',
-        
+        textAlign: 'center',
+
+    }, 
+    user:{
+        textAlign: 'center', 
+        marginBottom: 20,
+        marginTop: 10, 
+        marginHorizontal: 145,  
+        borderRadius: 40, 
+        borderColor: 'black', 
+        borderWidth: 2, 
+    }, 
+    logout:{
+        margin: 10, 
+        textAlign: 'right'
     }
 })
 export default Profile;
