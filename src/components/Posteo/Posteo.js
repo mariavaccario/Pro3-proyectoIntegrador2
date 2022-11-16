@@ -85,11 +85,8 @@ render(){
                 </TouchableOpacity>
 
                     }   */}
-            <TouchableOpacity onPress={() => this.props.navigation.navigate(
-            'Comments',
-            {id:this.props.id}
-            )}>
-            {/* <Text>Agregar comentario</Text> */}
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments',{id:this.props.id})}>
+            <Text>Comentarios: {this.state.comments.length}</Text>
 
             {this.state.isMyPost ? (
                     <TouchableOpacity onPress={() => this.borrarPosteo()}>
