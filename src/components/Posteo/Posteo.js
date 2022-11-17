@@ -5,7 +5,6 @@ import firebase from 'firebase';
 import {auth, db} from '../../firebase/config';
 import { FontAwesome5, Feather } from '@expo/vector-icons'; 
 
-
 class Posteo extends Component {
     constructor(props){
         super(props)
@@ -69,14 +68,27 @@ render(){
                  source= {{uri: this.props.postData.data.photo}}
                  resizeMode='contain'   
             />
-         <View style={style.contenedorUserBio}>
-            <Text style={style.user}>
+        {this.props.postData.data.owner == auth.currentUser.email ?
+        <View style={style.contenedorUserBio}>
+        <Text style={style.user}onPress={()=> this.props.navigation.navigate('Profile')}>
+            {this.props.postData.data.userName}
+        </Text>
+        <Text>
+                {this.props.postData.data.textoPost}
+            </Text>
+        </View>
+        : 
+        <View style={style.contenedorUserBio}>
+            <Text style={style.user}onPress={()=> this.props.navigation.navigate('otroProfile', {email: this.props.postData.data.owner})}>
                 {this.props.postData.data.userName}
             </Text>
             <Text>
                 {this.props.postData.data.textoPost}
             </Text>
         </View>
+        }
+         
+            
             <View style={style.likes}>
             <Text style={style.nroLikes}>{this.state.numeroLikes.likes}10 <Feather name="heart" size={20} color="black" /></Text>
             {this.state.userLike ?
