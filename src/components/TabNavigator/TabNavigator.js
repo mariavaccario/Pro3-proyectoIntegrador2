@@ -9,6 +9,7 @@ import NewPost from '../../screens/NewPost';
 import Profile from '../../screens/Profile';
 import Buscador from '../../screens/Buscador';
 
+
 function TabNavigator(){
     const Tab = createBottomTabNavigator();
     return (
@@ -42,8 +43,7 @@ function TabNavigator(){
                     {tabBarIcon: ()=> <FontAwesome name="user" size={24} color="black" />, headerShown: false }
                 }
             />
-            
-            
+                
         
         </Tab.Navigator>
     )

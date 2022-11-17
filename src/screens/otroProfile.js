@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 import { auth, db, updatePassword } from '../firebase/config';
 import {
     View,
@@ -13,7 +14,7 @@ import { AntDesign, MaterialIcons, Fontisto } from '@expo/vector-icons';
 import Posteo from '../components/Posteo/Posteo';
 import Navbar from '../components/Navbar/Navbar'
 
-class Profile extends Component{
+class OtroProfile extends Component{
     constructor(props){
         super(props)
         this.state={
@@ -32,7 +33,7 @@ class Profile extends Component{
     }
 
     componentDidMount(){
-        db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(
+        db.collection('users').where('owner', '==', this.props.route.params.email).onSnapshot(
             docs => {
                 docs.forEach( doc=> {
                     const usuario = doc.data();
@@ -46,7 +47,7 @@ class Profile extends Component{
                 });
             }
         )
-        db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(
+        db.collection('posts').where('owner', '==', this.props.route.params.email).onSnapshot(
             docs =>{
                 let posteos = [];
                 docs.forEach(doc => {
@@ -61,10 +62,7 @@ class Profile extends Component{
             }
         )
         }
-    logout() {
-        auth.signOut()
-            .then(() => this.props.navigation.navigate("Login"))
-    }
+    
 
     
 
@@ -83,15 +81,7 @@ render(){
                     <Text>{this.state.email}</Text>
                     <Text>{this.state.bio}</Text>
                     <Text>Cantidad de posteos: {this.state.posteosUser.length}</Text> 
-                    <View style={ style.icons}>
-                        <Text style={style.logout} onPress={ () => this.props.navigation.navigate('editarProfile')}>
-                            <Fontisto name="player-settings" size={20} color="black" />
-                        </Text>
-
-                        <TouchableOpacity onPress={() => this.logout()} >   
-                            <Text style={style.logout}><MaterialIcons name="logout" size={20} color="black" /></Text>
-                        </TouchableOpacity> 
-                    </View>
+                    
                 </View>
             </View>
 
@@ -154,4 +144,4 @@ const style = StyleSheet.create({
         marginHorizontal: 22
     }
 })
-export default Profile;
+export default OtroProfile;

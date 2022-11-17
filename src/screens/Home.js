@@ -54,7 +54,7 @@ class Home extends Component {
                 <FlatList style={style.fondo}
                     data={this.state.posts}
                     keyExtractor={onePost => onePost.id.toString()}
-                    renderItem={({ item }) => <Posteo postData={item} irAComments={ () => this.irAComments()} />}
+                    renderItem={({ item }) => <Posteo postData={item} irAComments={ () => this.irAComments()} navigation={this.props.navigation} />}
                 />
                 
 
