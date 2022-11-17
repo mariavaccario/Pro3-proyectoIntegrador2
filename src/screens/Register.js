@@ -7,8 +7,6 @@ import { View,
          StyleSheet,
         Image } from 'react-native';
 
-import Camera from '../components/Camera/Camera'
-
 class Register extends Component{
     constructor(){
         super()
@@ -17,27 +15,26 @@ class Register extends Component{
             pass: '',
             userName: '',
             bio: '',
-            errors: '', 
-            foto: ''
+            field: '', 
+            message: ''
         }
     }
 
-    componentDidMount(){
-        auth.onAuthStateChanged(
-            user => {
-             if(user){
-                this.props.navigation.navigate('Home')
-        }})
-    }
+     componentDidMount(){
+         auth.onAuthStateChanged(
+             user => {
+              if(user){
+                 this.props.navigation.navigate('Login')
+         }})
+     }
 
-    registerUser(email, pass, userName, bio, foto){
+    registerUser(email, pass, userName, bio){
         auth.createUserWithEmailAndPassword(email, pass)
         .then( res => {
             db.collection('users').add({
                 owner: email,
                 userName: userName,
                 bio: bio,
-                foto: foto,
                 createdAt: Date.now()
             })
 
@@ -47,17 +44,32 @@ class Register extends Component{
                 pass:'',
                 userName: '',
                 bio: '',
-                errors:''
+                field: '',
+                message: ''
             })
 
             this.props.navigation.navigate('Login')
         })
 
-        .catch(error=> console.log(error))
+        .catch(error => {
+            console.log(error)
+            if (error.code === 'auth/invalid-email'){
+                this.setState({
+                    field: 'email', 
+                    message: 'Email incorrecto'
+            
+                })
+            }else if (error.code === 'auth/weak-password'){
+                this.setState({
+                    field: 'password', 
+                    message: 'Contraseña incorrecta'
+            
+                })
+            }
+            
         })
+    })}
 
-        .catch(error=> console.log(error))
-    }
 
     onImageUpload(url) {
         console.log(url)
@@ -75,19 +87,44 @@ class Register extends Component{
                 source={require("../../assets/register.com.png")}
                 resizeMode='contain'/>
                 
-                
-                    <TextInput style={style.box} 
+                {this.state.field == 'email' ?
+                <>
+                <TextInput style={style.boxM} 
                         placeholder='Email'
                         keyboardType='email-address'
                         onChangeText={ text => this.setState({email:text}) }
                         value={this.state.email}
                     /> 
-                    <TextInput style={style.box} 
-                        placeholder='Password'
-                        keyboardType='default'
-                        onChangeText={ text => this.setState({pass:text}) }
-                        value={this.state.pass}
+                <Text style={style.msjE}>{this.state.message}</Text>
+                </>
+                : 
+                <TextInput style={style.box} 
+                        placeholder='Email'
+                        keyboardType='email-address'
+                        onChangeText={ text => this.setState({email:text}) }
+                        value={this.state.email}
                     /> 
+                }
+
+                {this.state.field == 'password'?
+                    <>
+                    <TextInput style={style.boxM} 
+                            placeholder='Password'
+                            keyboardType='default'
+                            onChangeText={ text => this.setState({pass:text}) }
+                            value={this.state.pass}
+                        /> 
+                        <Text style={style.msjE}>{this.state.message}</Text>
+                    </>
+                    :
+                    <TextInput style={style.box} 
+                            placeholder='Password'
+                            keyboardType='default'
+                            onChangeText={ text => this.setState({pass:text}) }
+                            value={this.state.pass}
+                        />
+                }
+                    
                     <TextInput style={style.box}   
                         placeholder='Username'
                         keyboardType='default'
@@ -134,6 +171,23 @@ const style= StyleSheet.create({
         borderColor: 'black',
         backgroundColor: 'rgb(243,245,243)',
         borderRadius: 7
+
+    },
+    boxM:{
+        borderStyle: 'solid',
+        borderWidth: 1,
+        padding: 15,
+        margin: 3,
+        backgroundColor: 'rgb(243,245,243)',
+        borderRadius: 7,
+        borderColor: 'red',
+        color: 'red'
+    },
+
+    msjE:{
+        padding: 7,
+        margin: 3,
+        color: 'red', 
 
     },
 

@@ -39,22 +39,12 @@ class EditarProfile extends Component{
             }
         )
         }
-
-        updateInfoProfile(){
-            db.collection('users')
-               .doc(this.state.idUsuario)
-               .update({
-                   userName: this.state.userName,
-                   bio: this.state.bio,
-                   
-   
-   
-                })
-                .catch(error => console.log(error))
-        }
    
        editarPerfil(){
             console.log(this.state.pass)
+
+            this.props.navigation.navigate('TabNavigator')
+
            if(this.state.passVieja !==''&& this.state.pass!==''){
                 auth.signInWithEmailAndPassword(auth.currentUser.email, this.state.passVieja)
    
@@ -63,15 +53,29 @@ class EditarProfile extends Component{
                     usuario.updatePassword(
                         this.state.pass
                     )
-                        this.updateInfoProfile();
+                    db.collection('users')
+                        .doc(this.state.idUsuario)
+                        .update({
+                            userName: this.state.userName,
+                            bio: this.state.bio,
+                        })
    
                     })
                 
-               .catch(error => this.setState({
+               .catch(error => {
+                console.log(error)
+               this.setState({
                     error: error.message
-               }))
+               })})
         } else {
-            this.updateInfoProfile();
+            db.collection('users')
+                        .doc(this.state.idUsuario)
+                        .update({
+                            userName: this.state.userName,
+                            bio: this.state.bio,
+                        })
+   
+                    
         }
     }
 
@@ -135,7 +139,8 @@ const style =StyleSheet.create({
         margin: 3,
         borderColor: 'black',
         backgroundColor: 'rgb(243,245,243)',
-        borderRadius: 7
+        borderRadius: 7, 
+        color: 'grey'
 
     },
 
