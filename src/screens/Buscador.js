@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TextInput} from 'react-native';
+import { View, Text, FlatList, TextInput, StyleSheet} from 'react-native';
 
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
+
+// import { FontAwesome } from '@expo/vector-icons';
 
 
 
@@ -23,7 +25,7 @@ componentDidMount() {
             docs.forEach (doc => {
                 info.push({
                     id: doc.id,
-                    data: doc.data
+                    data: doc.data()
                 })
                 this.setState({
                     users: info
@@ -32,7 +34,8 @@ componentDidMount() {
 }
 
 filtrar(texto) {
-    let filtrado = this.state.users.filter((users) => users.data.userName.toLowerCase().includes(texto.toLowerCase()))
+    let filtrado = this.state.users.filter((user) => user.data.userName.toLowerCase().includes(texto.toLowerCase()))
+    console.log(filtrado);
         this.setState({
             results: filtrado,
             input: texto
@@ -43,24 +46,27 @@ render(){
     return(
 
         <View>
+            
             <View>
+                <Text>Encontrá a la persona que quieras</Text>
                 <TextInput 
-                        placeholder= 'Email'
+                        placeholder= 'Nombre de usuario'
                         keyboardType= 'default'
-                        onChangeText= {texto => this.filtrar(texto)}
+                        onChangeText= {text => this.filtrar(text)}
                         value = {this.state.input}
                 />
+                
             </View>
 
             {
                 this.state.results.length === 0 ?
                 <Text>No existe el usuario que estas buscando</Text>
                 :
-                <FlatList
+                <FlatList style={style.fondo}
                         data={this.state.results}
                         keyExtractor={oneUser => oneUser.id.toString()}
                         renderItem={({ item }) => 
-                            <Text onPress={() => this.irAPerfil(item)} ></Text>
+                            <Text onPress={() => this.irAPerfil(item)} >{item.data.userName}</Text>
                         }
                 />
             }
@@ -69,6 +75,41 @@ render(){
     )
 }
 }
+
+const style = StyleSheet.create({
+    fondo: {
+        backgroundColor: 'rgb(242,242,242)'
+
+    },
+    logout: {
+        color: 'black',
+        backgroundColor: 'white'
+
+    },
+    titulos: {
+        color: 'white',
+        backgroundColor: 'black',
+        flex: 1
+
+    },
+    logo:{
+        height:100,
+        width:'100%', 
+        backgroundColor: 'white'
+    },
+
+    contenedor: {
+            flex: 1,
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            color: 'black'
+        
+    }
+
+
+
+
+})
 
 
 export default Buscador;

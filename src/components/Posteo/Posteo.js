@@ -79,7 +79,7 @@ render(){
         </View>
             <View style={style.likes}>
             <Text style={style.nroLikes}>{this.state.numeroLikes.likes}10 <Feather name="heart" size={20} color="black" /></Text>
-            {/* {this.state.userLike ?
+            {this.state.userLike ?
                 <TouchableOpacity onPress={()=> this.meGusta()}>
                     <Text>Me gusta</Text>
                 </TouchableOpacity>
@@ -88,7 +88,7 @@ render(){
                     <Text>No me gusta</Text>
                 </TouchableOpacity>
 
-                    }   */}  
+                    }    
           </View>
         <View style={style.iconos}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments',{id:this.props.postData.id})}>
