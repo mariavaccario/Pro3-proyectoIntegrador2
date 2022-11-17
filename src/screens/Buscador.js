@@ -45,11 +45,11 @@ filtrar(texto) {
 render(){
     return(
 
-        <View>
+        <View style={style.contenedor}>
             
             <View>
-                <Text>Encontrá a la persona que quieras</Text>
-                <TextInput 
+                <Text style={style.titulo} >Encontrá a la persona que quieras</Text>
+                <TextInput style={style.formulario}
                         placeholder= 'Nombre de usuario'
                         keyboardType= 'default'
                         onChangeText= {text => this.filtrar(text)}
@@ -60,13 +60,13 @@ render(){
 
             {
                 this.state.results.length === 0 ?
-                <Text>No existe el usuario que estas buscando</Text>
+                <Text style={style.resultados}>No existe el usuario que estas buscando</Text>
                 :
                 <FlatList style={style.fondo}
                         data={this.state.results}
                         keyExtractor={oneUser => oneUser.id.toString()}
                         renderItem={({ item }) => 
-                            <Text onPress={() => this.irAPerfil(item)} >{item.data.userName}</Text>
+                            <Text onPress={() => this.otroProfile(item)} style={style.resultados}>{item.data.userName}</Text>
                         }
                 />
             }
@@ -77,38 +77,33 @@ render(){
 }
 
 const style = StyleSheet.create({
-    fondo: {
-        backgroundColor: 'rgb(242,242,242)'
-
+    titulo: {
+        marginLeft: 30, 
+        marginRight: 4,
+        marginTop: 16,
+        fontWeight: 'bold'
     },
-    logout: {
-        color: 'black',
+    contenedor:{
+        margin: 20, 
+        borderRadius: 7, 
         backgroundColor: 'white'
-
+    }, 
+    formulario:{
+        borderStyle: 'solid',
+        borderWidth: 1,
+        padding: 9,
+        marginTop: 15, 
+        marginBottom: 15,
+        margin: 15,
+        backgroundColor: 'rgb(243,245,243)',
+        borderRadius: 7,
+        borderColor: 'black',
     },
-    titulos: {
-        color: 'white',
-        backgroundColor: 'black',
-        flex: 1
-
-    },
-    logo:{
-        height:100,
-        width:'100%', 
-        backgroundColor: 'white'
-    },
-
-    contenedor: {
-            flex: 1,
-            backgroundColor: 'white',
-            justifyContent: 'center',
-            color: 'black'
-        
+    resultados:{
+        marginTop: 15,
+        marginBottom: 10,
+        marginLeft: 10
     }
-
-
-
-
 })
 
 
