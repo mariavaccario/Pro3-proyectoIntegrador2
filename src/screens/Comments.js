@@ -45,15 +45,15 @@ render(){
         <View> 
         <Navbar/>
         <View style={style.contenedor}>
-        <Text> Comentarios del posteo</Text>
+        <Text style={style.titulo}> Comentarios del posteo</Text>
 
         {this.state.comments == 0 ?
         
         <View> 
-        <Text  > Esta publicación aun no tiene comentarios. ¡Sé el primero! </Text>
+        <Text style={style.sinComentarios}> Esta publicación aun no tiene comentarios. ¡Sé el primero! </Text>
         </View>
         :
-        <FlatList 
+        <FlatList style={style.resultados}
             data={this.state.comments}
             keyExtractor={ oneComment => oneComment.createdAt.toString()}
             renderItem={ ({item}) => <Text>{item.owner} : {item.comment}</Text>}
@@ -88,8 +88,8 @@ const style = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 1,
         padding: 9,
-        marginTop: 15, 
-        marginBottom: 15,
+        marginTop: 7, 
+        marginBottom: 10,
         margin: 15,
         backgroundColor: 'rgb(243,245,243)',
         borderRadius: 7,
@@ -106,12 +106,29 @@ const style = StyleSheet.create({
         textAlign: 'center',
         color: 'white',
         borderRadius: 7,
+        marginBottom: 10
     },
     contenedor:{
         margin: 20,
         borderRadius: 7, 
         backgroundColor: 'white',
         marginBottom: 6
+    },
+    resultados:{
+        borderRadius: 7, 
+        backgroundColor: 'white',
+        marginTop: 3,
+        margin: 20,
+    },
+    titulo: {
+        marginLeft: 57, 
+        marginRight: 4,
+        marginTop: 16,
+        fontWeight: 'bold',
+        marginBottom: 5
+    },
+    sinComentarios: {
+        margin: 6
     }
 })
 

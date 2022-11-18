@@ -3,7 +3,7 @@ import {Text, TouchableOpacity, StyleSheet, View, Image} from 'react-native';
 
 import firebase from 'firebase';
 import {auth, db} from '../../firebase/config';
-import { FontAwesome5, Feather } from '@expo/vector-icons'; 
+import { FontAwesome5, Feather, Ionicons } from '@expo/vector-icons'; 
 
 class Posteo extends Component {
     constructor(props){
@@ -104,21 +104,22 @@ render(){
             <View style={style.likes}>
             {this.state.userLike ?                 
                 <TouchableOpacity onPress={()=> this.noMeGusta()}>
-                    <Text>No me gusta</Text>
+                    <Ionicons name="ios-heart-sharp" size={24} color="black" />
                 </TouchableOpacity>
                 
                 :
                 <TouchableOpacity onPress={()=> this.meGusta()}>
-                    <Feather name="heart" size={20} color="black"/>
+                    <Ionicons name="ios-heart-outline" size={24} color="black" />
                 </TouchableOpacity>
+                
 
                     }
-                <Text style={style.nroLikes}>Likes: {this.state.numeroLikes}</Text>
+                <Text style={style.nroLikes}>{this.state.numeroLikes} Me gusta</Text>
           </View>
 
         <View style={style.iconos}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments',{id:this.props.postData.id})}>
-                <Text>Comentarios {this.state.comments.length}</Text>
+                <Text>Ver los {this.state.comments.length} comentarios</Text>
             </TouchableOpacity>
             {this.state.isMyPost ? (
                     <TouchableOpacity onPress={() => this.borrarPosteo()}>
