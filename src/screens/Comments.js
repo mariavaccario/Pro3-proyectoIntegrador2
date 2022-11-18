@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {Text, TouchableOpacity, StyleSheet, View, TextInput, FlatList} from 'react-native';
 
 import { auth, db } from '../firebase/config';
+import firebase from 'firebase';
 
+import Navbar from '../components/Navbar/Navbar'
 
 class Comments extends Component {
     constructor(props){
@@ -10,7 +12,7 @@ class Comments extends Component {
         this.state = {
             id: this.props.route.params.id,
             comment:"",
-            comments: []
+            comments: [],
         }
     }
 
@@ -41,6 +43,8 @@ render(){
     console.log(this.state.comments)
     return(
         <View> 
+        <Navbar/>
+        <View style={style.contenedor}>
         <Text> Comentarios del posteo</Text>
 
         {this.state.comments == 0 ?
@@ -52,10 +56,10 @@ render(){
         <FlatList 
             data={this.state.comments}
             keyExtractor={ oneComment => oneComment.createdAt.toString()}
-            renderItem={ ({item}) => <Text>{item.creador} : {item.comment}</Text>}
+            renderItem={ ({item}) => <Text>{item.owner} : {item.comment}</Text>}
         /> 
         }
-        <TextInput 
+        <TextInput style={style.formulario}
             placeholder='Agregue un comentario'
             keyboardType='default'
             onChangeText={text=> this.setState({comment:text})}
@@ -64,18 +68,51 @@ render(){
         {this.state.comment == "" ?
             <Text></Text>
             :
-            <TouchableOpacity onPress={()=> this.addComment(this.state.comment) }>
-                <Text>Subir comentario</Text>
+            <TouchableOpacity onPress={()=>this.addComment(this.state.comment)}>
+            <Text style={style.botonComentar}>Comentar</Text>
             </TouchableOpacity> 
 
     
 
 }
+</View>
         </View>
     )
 }
 
 
 }
+
+const style = StyleSheet.create({
+    formulario:{
+        borderStyle: 'solid',
+        borderWidth: 1,
+        padding: 9,
+        marginTop: 15, 
+        marginBottom: 15,
+        margin: 15,
+        backgroundColor: 'rgb(243,245,243)',
+        borderRadius: 7,
+        borderColor: 'black',
+    },
+    botonComentar: {
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderColor: 'black',
+        backgroundColor: 'rgb(49,47,53)',
+        marginLeft: 20,
+        marginRight: 20,
+        padding: 10,
+        textAlign: 'center',
+        color: 'white',
+        borderRadius: 7,
+    },
+    contenedor:{
+        margin: 20,
+        borderRadius: 7, 
+        backgroundColor: 'white',
+        marginBottom: 6
+    }
+})
 
 export default Comments

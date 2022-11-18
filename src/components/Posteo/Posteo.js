@@ -36,7 +36,8 @@ class Posteo extends Component {
                 }
             ) 
             .then(()=> this.setState({
-                numeroLikes: this.state.numeroLikes + 1, userLike: true
+                numeroLikes: this.state.numeroLikes + 1, 
+                userLike: true
                 })
             ) 
             .catch(error => console.log(error))
@@ -44,7 +45,18 @@ class Posteo extends Component {
         
     
     noMeGusta(){
-        
+        db.collection('posts')
+            .doc(this.props.postData.id)
+            .update({
+                likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
+            })
+            .then(() => this.setState({
+                numeroLikes: this.state.cantidadDeLikes - 1,
+                userLike: false,
+            })
+            )
+            .catch(error => console.log(error))
+    
     }
 
     borrarPosteo() {
@@ -90,21 +102,23 @@ render(){
          
             
             <View style={style.likes}>
-            <Text style={style.nroLikes}>{this.state.numeroLikes.likes}10 <Feather name="heart" size={20} color="black" /></Text>
-            {this.state.userLike ?
-                <TouchableOpacity onPress={()=> this.meGusta()}>
-                    <Text>Me gusta</Text>
-                </TouchableOpacity>
-                :
+            {this.state.userLike ?                 
                 <TouchableOpacity onPress={()=> this.noMeGusta()}>
                     <Text>No me gusta</Text>
                 </TouchableOpacity>
+                
+                :
+                <TouchableOpacity onPress={()=> this.meGusta()}>
+                    <Feather name="heart" size={20} color="black"/>
+                </TouchableOpacity>
 
-                    }    
+                    }
+                <Text style={style.nroLikes}>Likes: {this.state.numeroLikes}</Text>
           </View>
+
         <View style={style.iconos}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments',{id:this.props.postData.id})}>
-                <Text>Comentarios</Text>
+                <Text>Comentarios {this.state.comments.length}</Text>
             </TouchableOpacity>
             {this.state.isMyPost ? (
                     <TouchableOpacity onPress={() => this.borrarPosteo()}>

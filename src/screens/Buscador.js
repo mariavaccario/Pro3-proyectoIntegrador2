@@ -4,6 +4,8 @@ import { View, Text, FlatList, TextInput, StyleSheet} from 'react-native';
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
 
+import Navbar from '../components/Navbar/Navbar'
+
 // import { FontAwesome } from '@expo/vector-icons';
 
 
@@ -42,12 +44,21 @@ filtrar(texto) {
         })
 }
 
+goToProfile(item){
+    if (item.data.owner === auth.currentUser.email) {
+        this.props.navigation.navigate('Profile')
+    } else {
+        this.props.navigation.navigate('otroProfile', { email: item.data.owner })
+    }
+}
+
 render(){
     return(
 
-        <View style={style.contenedor}>
-            
-            <View>
+        <View>
+            <Navbar/>
+
+            <View style={style.contenedor}>
                 <Text style={style.titulo} >Encontrá a la persona que quieras</Text>
                 <TextInput style={style.formulario}
                         placeholder= 'Nombre de usuario'
@@ -57,19 +68,20 @@ render(){
                 />
                 
             </View>
-
+            <View >
             {
                 this.state.results.length === 0 ?
-                <Text style={style.resultados}>No existe el usuario que estas buscando</Text>
+                <Text style={style.noExiste}>No existe el usuario que estas buscando</Text>
                 :
-                <FlatList style={style.fondo}
+                <FlatList style={style.resultados}
                         data={this.state.results}
                         keyExtractor={oneUser => oneUser.id.toString()}
                         renderItem={({ item }) => 
-                            <Text onPress={() => this.otroProfile(item)} style={style.resultados}>{item.data.userName}</Text>
+                            <Text onPress={() => this.goToProfile(item)} style={style.textoResultados}>{item.data.userName}</Text>
                         }
                 />
             }
+            </View>
         </View>
 
     )
@@ -78,15 +90,16 @@ render(){
 
 const style = StyleSheet.create({
     titulo: {
-        marginLeft: 30, 
+        marginLeft: 26, 
         marginRight: 4,
         marginTop: 16,
         fontWeight: 'bold'
     },
     contenedor:{
-        margin: 20, 
+        margin: 20,
         borderRadius: 7, 
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        marginBottom: 6
     }, 
     formulario:{
         borderStyle: 'solid',
@@ -99,11 +112,25 @@ const style = StyleSheet.create({
         borderRadius: 7,
         borderColor: 'black',
     },
+    noExiste:{
+        borderRadius: 7, 
+        backgroundColor: 'white',
+        marginTop: 6,
+        margin: 20,
+        padding: 10
+    },
     resultados:{
-        marginTop: 15,
-        marginBottom: 10,
-        marginLeft: 10
+        borderRadius: 7, 
+        backgroundColor: 'white',
+        marginTop: 1,
+        margin: 20,
+    },
+    textoResultados:{
+        paddingLeft: 10,
+        margin: 4
     }
+
+    
 })
 
 
