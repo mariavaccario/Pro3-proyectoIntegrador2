@@ -15,26 +15,28 @@ class Register extends Component{
             pass: '',
             userName: '',
             bio: '',
+            photo: '',
             field: '', 
             message: ''
         }
     }
 
-     componentDidMount(){
-         auth.onAuthStateChanged(
-             user => {
-              if(user){
-                 this.props.navigation.navigate('Login')
-         }})
-     }
+    //  componentDidMount(){
+    //      auth.onAuthStateChanged(
+    //          user => {
+    //           if(user){
+    //              this.props.navigation.navigate('Login')
+    //      }})
+    //  }
 
-    registerUser(email, pass, userName, bio){
+    registerUser(email, pass, userName, bio, photo){
         auth.createUserWithEmailAndPassword(email, pass)
         .then( res => {
             db.collection('users').add({
                 owner: email,
                 userName: userName,
                 bio: bio,
+                photo: photo,
                 createdAt: Date.now()
             })
 
@@ -44,6 +46,7 @@ class Register extends Component{
                 pass:'',
                 userName: '',
                 bio: '',
+                photo: '',
                 field: '',
                 message: ''
             })
@@ -53,13 +56,13 @@ class Register extends Component{
 
         .catch(error => {
             console.log(error)
-            if (error.code === 'auth/invalid-email'){
+            if (error.t.code === 'auth/invalid-email'){
                 this.setState({
                     field: 'email', 
-                    message: 'Email incorrecto'
+                    message: 'Email incompleto'
             
                 })
-            }else if (error.code === 'auth/weak-password'){
+            }else if (error.t.code === 'auth/weak-password'){
                 this.setState({
                     field: 'password', 
                     message: 'Contraseña incorrecta'
@@ -70,14 +73,6 @@ class Register extends Component{
         })
     })}
 
-
-    onImageUpload(url) {
-        console.log(url)
-        this.setState({
-            foto: url,
-            showCamera: false,
-        })
-    }
 
     render(){
         return(
@@ -139,7 +134,7 @@ class Register extends Component{
                         value={this.state.bio}
                     />   
 
-                    <TouchableOpacity onPress={()=>this.registerUser(this.state.email, this.state.pass, this.state.userName, this.state.bio)}>
+                    <TouchableOpacity onPress={()=>this.registerUser(this.state.email, this.state.pass, this.state.userName, this.state.bio, this.state.photo)}>
                         <Text style={style.botonIngresar}>Registrarme</Text>
                     </TouchableOpacity>
 

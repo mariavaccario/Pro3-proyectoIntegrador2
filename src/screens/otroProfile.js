@@ -73,7 +73,7 @@ render(){
             
 
                 <Text onPress={()=> this.props.navigation.navigate('Home')}> 
-                    <AntDesign name="arrowleft" size={24} color="black" />
+                    <AntDesign style={style.arrow} name="arrowleft" size={24} color="black" />
                 </Text>
             
             <View style={style.contenedor2}>
@@ -144,6 +144,10 @@ const style = StyleSheet.create({
     }, 
     misPosteos:{
         marginHorizontal: 22
+    }, 
+    arrow: {
+        marginHorizontal: 15, 
+        paddingVertical: 20
     }
 })
 export default OtroProfile;

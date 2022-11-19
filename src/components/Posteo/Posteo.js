@@ -104,6 +104,7 @@ render(){
          
             
             <View style={style.likes}>
+            <Text style={style.nroLikes}>{this.state.numeroLikes}</Text>
             {this.state.userLike ?                 
                 <TouchableOpacity onPress={()=> this.noMeGusta()}>
                     <Ionicons name="ios-heart-sharp" size={24} color="red" />
@@ -116,7 +117,7 @@ render(){
                 
 
                     }
-                <Text style={style.nroLikes}>{this.state.numeroLikes} Me gusta</Text>
+                
           </View>
 
         <View style={style.iconos}>
@@ -162,7 +163,13 @@ const style = StyleSheet.create({
     }, 
     likes:{
         marginHorizontal: 10,
-        marginVertical: 5
+        marginVertical: 5, 
+        flexDirection: 'row', 
+        justifyContent: 'left'
+    }, 
+    nroLikes:{
+        marginTop: 3, 
+        marginRight: 2
     }
 })
 
