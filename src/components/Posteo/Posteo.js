@@ -121,9 +121,9 @@ render(){
           </View>
 
         <View style={style.iconos}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments',{id:this.props.postData.id})}>
-                <Text>Ver los {this.state.comments.length} comentarios</Text>
-            </TouchableOpacity>
+            <Text onPress={() => this.props.navigation.navigate('Comments',{id:this.props.postData.id})}>
+                Ver los {this.state.comments.length} comentarios
+            </Text>
             {this.state.isMyPost ? (
                     <TouchableOpacity onPress={() => this.borrarPosteo()}>
                         <FontAwesome5 name="trash" size={18} color="black" style={style.borrar}/>

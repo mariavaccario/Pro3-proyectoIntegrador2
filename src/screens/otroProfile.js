@@ -20,8 +20,6 @@ class OtroProfile extends Component{
         this.state={
             posteosUser: [],
             userName: '',
-            contra: '',
-            contraNueva: '',
             photo: '',
             bio: '',
             idUsuario: '',
@@ -42,7 +40,7 @@ class OtroProfile extends Component{
                         userName: usuario.userName,
                         email: usuario.owner,
                         bio: usuario.bio,
-                        photo: usuario.foto
+                        photo: usuario.photo
                     })
                 });
             }
@@ -71,13 +69,23 @@ render(){
         <View style={style.contenedor}>
             <Navbar/>
             
-
+            
+                
                 <Text onPress={()=> this.props.navigation.navigate('Home')}> 
                     <AntDesign style={style.arrow} name="arrowleft" size={24} color="black" />
                 </Text>
             
-            <View style={style.contenedor2}>
-                <Text style={style.user}><AntDesign name="adduser" size={70} color="black" /></Text>
+                <View style={style.contenedor2}>
+                    {this.state.photo !== ''?
+                    <Image
+                        style={style.fotoPerfil}
+                        source={this.state.photo}
+                        resizeMode='contain'
+                    />
+                    :
+                    <Text style={style.user}><AntDesign name="user" size={70} color="black" /></Text>
+                    }
+
                 <View style={style.info}>            
                     <Text>{this.state.userName}</Text>
                     <Text>{this.state.email}</Text>
@@ -97,7 +105,7 @@ render(){
             <FlatList
                 data= {this.state.posteosUser}
                 keyExtractor={onePost => onePost.id.toString()}
-                renderItem= {({item})=> <Posteo postData={item} />}
+                renderItem= {({item})=> <Posteo postData={item} irAComments={ () => this.irAComments()} navigation={this.props.navigation} />}
                 // refrescarPosts={this.traerPosteosUser}
 
             />
@@ -107,6 +115,13 @@ render(){
 const style = StyleSheet.create({
     contenedor:{
         flex:1,
+    },
+    fotoPerfil:{
+        width: 130,
+        height: 100,
+        borderRadius: '50%',
+        overflow: 'hidden',
+        marginHorizontal: 30, 
     },
     contenedor2:{
         flexDirection: 'row',

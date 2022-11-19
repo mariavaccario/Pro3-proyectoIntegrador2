@@ -104,7 +104,7 @@ render(){
             <FlatList
                 data= {this.state.posteosUser}
                 keyExtractor={onePost => onePost.id.toString()}
-                renderItem= {({item})=> <Posteo postData={item} />}
+                renderItem= {({item})=> <Posteo postData={item} irAComments={ () => this.irAComments()} navigation={this.props.navigation} />}
                 // refrescarPosts={this.traerPosteosUser}
 
             />
@@ -141,7 +141,6 @@ const style = StyleSheet.create({
         borderRadius: '50%',
         overflow: 'hidden',
         marginHorizontal: 30, 
-        // borderRadius: '200%'
     },
     icons: {
         flexDirection: 'row', 

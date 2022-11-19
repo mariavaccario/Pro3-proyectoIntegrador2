@@ -36,7 +36,7 @@ class Login extends Component {
             })
             .catch(error => {
                 console.log(error)
-                if (error.code == 'auth/invalid-email' && error.code=='auth/user-not-found'){
+                if (error.code == 'auth/invalid-email' || error.code =='auth/user-not-found'){
                     this.setState({
                         field: 'email', 
                         message: 'Email incorrecto'

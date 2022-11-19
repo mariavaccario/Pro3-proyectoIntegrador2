@@ -36,7 +36,7 @@ class EditarProfile extends Component{
                         userName: usuario.userName,
                         email: usuario.owner,
                         bio: usuario.bio,
-                        fotodePerfil: usuario.photo
+                        fotoDePerfil: usuario.photo
                     })
                 });
             }
@@ -116,6 +116,9 @@ render(){
                         style={style.image}
                         source={{uri: this.state.fotoDePerfil}}
                         />
+                        <TouchableOpacity  style={style.button} onPress={() => this.camara()}>
+                            <Text style={style.buttonText}> <AntDesign name="camerao" size={24} color="white" /> Cambiar foto de perfil </Text>
+                        </TouchableOpacity>
                         <TextInput style={style.box} 
                         placeholder='Contraseña anterior'
                         keyboardType='default'
@@ -151,7 +154,7 @@ render(){
                         resizeMode='contain'
                         />
                         <TouchableOpacity  style={style.button} onPress={() => this.camara()}>
-                            <Text style={style.buttonText}> <AntDesign name="camerao" size={24} color="white" /> Agregar foto </Text>
+                            <Text style={style.buttonText}> <AntDesign name="camerao" size={24} color="white" /> Agregar foto de perfil </Text>
                         </TouchableOpacity>
                         <TextInput style={style.box} 
                         placeholder='Contraseña anterior'
@@ -247,7 +250,7 @@ const style =StyleSheet.create({
     }, 
     button:{
         padding: 15,
-        margin: 3,
+        margin: 5,
         borderColor: '#444',
         borderWidth: 1,
         paddingVertical:8,
