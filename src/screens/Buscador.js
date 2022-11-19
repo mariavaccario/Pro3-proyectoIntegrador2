@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, TextInput, StyleSheet} from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
@@ -58,7 +59,12 @@ render(){
         <View>
             <Navbar/>
 
+
             <View style={style.contenedor}>
+
+                <Text onPress={()=> this.props.navigation.navigate('Home')}> 
+                    <AntDesign name="arrowleft" size={24} color="black" />
+                </Text>
                 <Text style={style.titulo} >Encontrá a la persona que quieras</Text>
                 <TextInput style={style.formulario}
                         placeholder= 'Nombre de usuario'

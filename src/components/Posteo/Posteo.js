@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity, StyleSheet, View, Image} from 'react-native';
+import {Text, TouchableOpacity, StyleSheet, View, Image, Alert} from 'react-native';
 
 import firebase from 'firebase';
 import {auth, db} from '../../firebase/config';
@@ -68,10 +68,12 @@ class Posteo extends Component {
     }
 
     Verificar(){
-        this.setState({
-            isMyPost: this.props.postData.data.owner === auth.currentUser.email
-        })
-    }
+         this.setState({
+             isMyPost: this.props.postData.data.owner === auth.currentUser.email
+         })
+     }
+
+    
 
 render(){
     return(
@@ -104,12 +106,12 @@ render(){
             <View style={style.likes}>
             {this.state.userLike ?                 
                 <TouchableOpacity onPress={()=> this.noMeGusta()}>
-                    <Ionicons name="ios-heart-sharp" size={24} color="black" />
+                    <Ionicons name="ios-heart-sharp" size={24} color="red" />
                 </TouchableOpacity>
                 
                 :
                 <TouchableOpacity onPress={()=> this.meGusta()}>
-                    <Ionicons name="ios-heart-outline" size={24} color="black" />
+                    <Ionicons name="ios-heart-outline" size={24} color="red" />
                 </TouchableOpacity>
                 
 
@@ -123,8 +125,8 @@ render(){
             </TouchableOpacity>
             {this.state.isMyPost ? (
                     <TouchableOpacity onPress={() => this.borrarPosteo()}>
-            <FontAwesome5 name="trash" size={18} color="black" style={style.borrar}/>
-            </TouchableOpacity>
+                        <FontAwesome5 name="trash" size={18} color="black" style={style.borrar}/>
+                    </TouchableOpacity>
                 ) : null}
         </View>
        </View>

@@ -70,9 +70,11 @@ render(){
     return(
         <View style={style.contenedor}>
             <Navbar/>
-            {/* <TouchableOpacity onPress={() => this.logout()} >   
-                <Text style={style.logout}><MaterialIcons name="logout" size={24} color="black" /></Text>
-            </TouchableOpacity>  */}
+            
+
+                <Text onPress={()=> this.props.navigation.navigate('Home')}> 
+                    <AntDesign name="arrowleft" size={24} color="black" />
+                </Text>
             
             <View style={style.contenedor2}>
                 <Text style={style.user}><AntDesign name="adduser" size={70} color="black" /></Text>

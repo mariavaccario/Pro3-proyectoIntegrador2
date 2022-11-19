@@ -1,7 +1,10 @@
-import { grey } from "kleur";
+
 import React, {Component} from "react";
 import {View, Text, TouchableOpacity, StyleSheet, Image} from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+
+
 
 
 function Navbar(){
@@ -11,8 +14,12 @@ function Navbar(){
                 <Image style = {styles.logo} 
                     source={require("../../../assets/befoodie.png")}
                     resizeMode='contain'/>
+                
             </View>
         </SafeAreaView>
+
+        
+
     )
 }
 const styles = StyleSheet.create({
