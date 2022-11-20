@@ -60,13 +60,13 @@ class Register extends Component{
             if (error.code === 'auth/invalid-email'){
                 this.setState({
                     field: 'email', 
-                    message: 'Email incompleto'
+                    message: 'Ingresar un mail'
             
                 })
             }else if (error.code === 'auth/weak-password'){
                 this.setState({
                     field: 'password', 
-                    message: 'Contraseña incorrecta'
+                    message: 'Ingresar una contraseña'
             
                 })
             }

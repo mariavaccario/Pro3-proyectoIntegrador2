@@ -8,7 +8,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     FlatList,
-    Image
+    Image,
+
 } from 'react-native';
 import MyCamera from '../components/Camera/Camera';
 import { AntDesign } from '@expo/vector-icons';
@@ -101,6 +102,10 @@ class EditarProfile extends Component{
 render(){
     return(
         <View style={style.contenedor}> 
+
+            <Text style={style.arrow} onPress={()=> this.props.navigation.navigate('Profile')}> 
+                <AntDesign  name="arrowleft" size={24} color="black" />
+            </Text>
            
                 {this.state.showCamera ?
                 <MyCamera onImageUpload={url => this.onImageUpload(url)}/>
@@ -263,6 +268,10 @@ const style =StyleSheet.create({
         color: '#fff',
         textAlign: 'center',
 
+    },
+    arrow: {
+        marginHorizontal: 10, 
+        paddingVertical: 10, 
     }
 
 
