@@ -8,9 +8,10 @@ import { View,
         Image } from 'react-native';
 
 class Register extends Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
+            props:props,
             email: '',
             pass: '',
             userName: '',
@@ -29,14 +30,14 @@ class Register extends Component{
     //      }})
     //  }
 
-    registerUser(email, pass, userName, bio, photo){
-        auth.createUserWithEmailAndPassword(email, pass)
+    registerUser(){
+        auth.createUserWithEmailAndPassword(this.state.email, this.state.pass)
         .then( res => {
             db.collection('users').add({
-                owner: email,
-                userName: userName,
-                bio: bio,
-                photo: photo,
+                owner: this.state.email,
+                userName: this.state.userName,
+                bio: this.state.bio,
+                photo: this.state.photo,
                 createdAt: Date.now()
             })
 
@@ -56,13 +57,13 @@ class Register extends Component{
 
         .catch(error => {
             console.log(error)
-            if (error.t.code === 'auth/invalid-email'){
+            if (error.code === 'auth/invalid-email'){
                 this.setState({
                     field: 'email', 
                     message: 'Email incompleto'
             
                 })
-            }else if (error.t.code === 'auth/weak-password'){
+            }else if (error.code === 'auth/weak-password'){
                 this.setState({
                     field: 'password', 
                     message: 'Contraseña incorrecta'
@@ -82,6 +83,7 @@ class Register extends Component{
                 source={require("../../assets/register.com.png")}
                 resizeMode='contain'/>
                 
+                <View>
                 {this.state.field == 'email' ?
                 <>
                 <TextInput style={style.boxM} 
@@ -134,7 +136,9 @@ class Register extends Component{
                         value={this.state.bio}
                     />   
 
-                    <TouchableOpacity onPress={()=>this.registerUser(this.state.email, this.state.pass, this.state.userName, this.state.bio, this.state.photo)}>
+                    </View>
+
+                    <TouchableOpacity onPress={()=>this.registerUser()}>
                         <Text style={style.botonIngresar}>Registrarme</Text>
                     </TouchableOpacity>
 

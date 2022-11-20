@@ -46,17 +46,17 @@ render(){
     return(
         <View> 
         <Navbar/>
-            <Text onPress={()=> this.props.navigation.navigate('Home')}> 
+            <Text style={style.arrow} onPress={()=> this.props.navigation.navigate('Home')}> 
                 <AntDesign name="arrowleft" size={24} color="black" />
             </Text>
         <View style={style.contenedor}>
             
-        <Text style={style.titulo}> Comentarios del posteo</Text>
+        <Text style={style.titulo}>Comentarios del posteo</Text>
 
         {this.state.comments == 0 ?
         
         <View> 
-        <Text style={style.sinComentarios}> Esta publicación aun no tiene comentarios. ¡Sé el primero! </Text>
+        <Text style={style.sinComentarios}>Esta publicación aun no tiene comentarios. ¡Sé el primero! </Text>
         </View>
         :
         <FlatList style={style.resultados}
@@ -129,15 +129,19 @@ const style = StyleSheet.create({
         
     },
     titulo: {
-        
-        marginVertical: 3,
+        marginLeft: 20,
         marginTop: 16,
         fontWeight: 'bold',
         marginBottom: 10,
         fontSize: 20
     },
     sinComentarios: {
-        margin: 6
+        marginLeft: 20, 
+        marginBottom: 5
+    }, 
+    arrow: {
+        marginHorizontal: 10, 
+        paddingVertical: 10, 
     }
 })
 

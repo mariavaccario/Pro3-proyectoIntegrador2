@@ -9,9 +9,10 @@ import { View,
 //import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
+            props:props,
             email:'',
             pass:'',
             field:'', 
