@@ -116,14 +116,7 @@ render(){
                         <Image style = {style.logo} 
                         source={require("../../assets/editarperfil.png")}
                         resizeMode='contain'
-                        />
-                        <Image
-                        style={style.image}
-                        source={{uri: this.state.fotoDePerfil}}
-                        />
-                        <TouchableOpacity  style={style.button} onPress={() => this.camara()}>
-                            <Text style={style.buttonText}> <AntDesign name="camerao" size={24} color="white" /> Cambiar foto de perfil </Text>
-                        </TouchableOpacity>
+                        />    
                         <TextInput style={style.box} 
                         placeholder='Contraseña anterior'
                         keyboardType='default'
@@ -148,6 +141,15 @@ render(){
                             onChangeText={ text => this.setState({bio:text}) }
                             value={this.state.bio}
                         />   
+                        <TouchableOpacity  style={style.box} onPress={() => this.camara()}>
+                            <Text style={style.buttonText}> <AntDesign name="camerao" size={24} color="black" /> Cambiar foto de perfil </Text>
+                        </TouchableOpacity>
+                        
+                        <Image
+                        style={style.image}
+                        source={{uri: this.state.fotoDePerfil}}
+                        />
+
                         <TouchableOpacity onPress={()=>this.editarPerfil()}>
                             <Text style={style.botonIngresar}>Aceptar</Text>
                         </TouchableOpacity>
@@ -158,9 +160,7 @@ render(){
                         source={require("../../assets/editarperfil.png")}
                         resizeMode='contain'
                         />
-                        <TouchableOpacity  style={style.button} onPress={() => this.camara()}>
-                            <Text style={style.buttonText}> <AntDesign name="camerao" size={24} color="white" /> Agregar foto de perfil </Text>
-                        </TouchableOpacity>
+                        
                         <TextInput style={style.box} 
                         placeholder='Contraseña anterior'
                         keyboardType='default'
@@ -185,6 +185,10 @@ render(){
                             onChangeText={ text => this.setState({bio:text}) }
                             value={this.state.bio}
                         />
+                        <TouchableOpacity  style={style.button} onPress={() => this.camara()}>
+                            <Text style={style.buttonText}> <AntDesign name="camerao" size={24} color="black" /> Agregar foto de perfil </Text>
+                        </TouchableOpacity>
+
                         <TouchableOpacity onPress={()=>this.editarPerfil()}>
                             <Text style={style.botonIngresar}>Aceptar</Text>
                         </TouchableOpacity>
@@ -197,10 +201,11 @@ render(){
                     
 
         </View>
-
     )
+
 }
 }
+
 
 const style =StyleSheet.create({
     // contenedor:{
@@ -213,6 +218,7 @@ const style =StyleSheet.create({
     image: {
         height: 400,
         marginVertical: 10,
+        margin: 3,
     },
 
     box:{
@@ -260,13 +266,13 @@ const style =StyleSheet.create({
         borderWidth: 1,
         paddingVertical:8,
         borderRadius: 4,
-        backgroundColor:'rgb(49,47,53)'
+        
         
     },
     buttonText:{
-        fontSize:20,
-        color: '#fff',
-        textAlign: 'center',
+        
+        color: 'black',
+       
 
     },
     arrow: {

@@ -5,7 +5,8 @@ import { View,
          TextInput,
          TouchableOpacity,
          StyleSheet,
-        Image } from 'react-native';
+        Image, 
+        ActivityIndicator} from 'react-native';
 //import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
@@ -16,7 +17,9 @@ class Login extends Component {
             email:'',
             pass:'',
             field:'', 
-            message: ''
+            message: '',
+            user: true,
+
             
         }
     }
@@ -26,6 +29,11 @@ class Login extends Component {
             user =>{
                 if(user){
                     this.props.navigation.navigate('TabNavigator')
+                
+                } else {
+                    this.setState({
+                        user:false
+                    })
                 }
             })
     }
@@ -58,7 +66,14 @@ class Login extends Component {
     render(){
         console.log(this.state.message + this.state.field)
         return(
-            <View style={style.contenedor} >
+           <View>
+            {this.state.user ?
+                <ActivityIndicator style={style.loader} size='large' color='blue'/> :
+           <View style={style.contenedor} >
+
+               
+
+            
                  <Image style = {style.logo} 
                 source={require("../../assets/Artboard1.png")}
                 resizeMode='contain'/>
@@ -113,8 +128,12 @@ class Login extends Component {
                     </TouchableOpacity>
 
                     <Text style={style.textTitle}onPress={ () => this.props.navigation.navigate('Register')} >Si no tenes cuenta, registrate aca</Text>
-                
+     
             </View>
+
+        }   
+
+        </View>
         )
     }
     
@@ -183,6 +202,10 @@ const style= StyleSheet.create({
         height:100, 
         margin: 15
     },
+    loader: {
+        marginVertical: 400,
+
+    }
 
 
 })

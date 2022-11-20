@@ -105,20 +105,25 @@ render(){
             
             <View style={style.likes}>
             
-            {this.state.userLike ?                 
+            {this.state.userLike ?      
+
+            <>
+                <Text style={style.nroLikes}>{this.state.numeroLikes} </Text>           
                 <TouchableOpacity onPress={()=> this.noMeGusta()}>
                     <Ionicons name="ios-heart-sharp" size={24} color="red" />
                 </TouchableOpacity>
-                
+            </>
                 :
+            <>
+                <Text style={style.nroLikes}>{this.state.numeroLikes} </Text>   
                 <TouchableOpacity onPress={()=> this.meGusta()}>
                     <Ionicons name="ios-heart-outline" size={24} color="red" />
                 </TouchableOpacity>
-
+            </>
                 
 
                     }
-                <Text style={style.nroLikes}>{this.state.numeroLikes} me gusta</Text>
+                
           </View>
 
         <View style={style.iconos}>
