@@ -66,9 +66,10 @@ class Login extends Component {
     render(){
         console.log(this.state.message + this.state.field)
         return(
-           <View>
+           <View style={style.contenedor}>
             {this.state.user ?
                 <ActivityIndicator style={style.loader} size='large' color='blue'/> :
+           
            <View style={style.contenedor} >
 
                
@@ -153,11 +154,11 @@ const style= StyleSheet.create({
         borderWidth: 1,
         padding: 15,
         margin: 3,
-        backgroundColor: 'rgb(243,245,243)',
-        borderRadius: 7,
         borderColor: 'black',
-    },
+        backgroundColor: 'rgb(243,245,243)',
+        borderRadius: 7
 
+    },
     boxM:{
         borderStyle: 'solid',
         borderWidth: 1,
@@ -195,18 +196,14 @@ const style= StyleSheet.create({
         padding: 15,
         textAlign: 'center',
         color: 'white',
-        borderRadius: 7,
+        borderRadius: 3,
 
     },
     logo:{
         height:100, 
-        margin: 15
-    },
-    loader: {
-        marginVertical: 400,
-
+        margin: 15,
+        
     }
-
 
 })
 
