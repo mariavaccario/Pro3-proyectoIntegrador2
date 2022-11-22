@@ -66,7 +66,7 @@ class Login extends Component {
     render(){
         console.log(this.state.message + this.state.field)
         return(
-           <View>
+           <View style={style.contenedor}>
             {this.state.user ?
                 <ActivityIndicator style={style.loader} size='large' color='blue'/> :
            <View style={style.contenedor} >
