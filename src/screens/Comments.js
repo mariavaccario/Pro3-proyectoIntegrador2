@@ -62,7 +62,7 @@ render(){
         <FlatList style={style.resultados}
             data={this.state.comments}
             keyExtractor={ oneComment => oneComment.createdAt.toString()}
-            renderItem={ ({item}) => <Text>{item.owner} : {item.comment}</Text>}
+            renderItem={ ({item}) => <Text>{item.owner}: {item.comment}</Text>}
         /> 
         }
         <TextInput style={style.formulario}

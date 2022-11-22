@@ -22,6 +22,14 @@ class Register extends Component{
         }
     }
 
+    // componentDidMount(){
+    //     auth.onAuthStateChanged(
+    //        user =>{
+    //             if(user){
+    //                this.props.navigation.navigate('Login')
+    //              } 
+    //          })
+    // }
 
     registerUser(){
         auth.createUserWithEmailAndPassword(this.state.email, this.state.pass)
