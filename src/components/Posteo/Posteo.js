@@ -51,7 +51,7 @@ class Posteo extends Component {
                 likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
             })
             .then(() => this.setState({
-                numeroLikes: this.state.cantidadDeLikes - 1,
+                numeroLikes: this.state.numeroLikes - 1,
                 userLike: false,
             })
             )
@@ -118,6 +118,11 @@ render(){
           </View>
 
         <View style={style.iconos}>
+            <FlatList style={style.resultados}
+                data={this.state.comments}
+                keyExtractor={ oneComment => oneComment.createdAt.toString()}
+                renderItem ={ ({item}) => <Text >{item.owner}: {item.comment}</Text>}
+            /> 
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments',{id:this.props.postData.id})}>
                 <Text>Ver los {this.state.comments.length} comentarios</Text>
             </TouchableOpacity>

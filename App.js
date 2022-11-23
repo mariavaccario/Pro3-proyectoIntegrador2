@@ -22,7 +22,7 @@ function App() {
         <Stack.Screen name ='TabNavigator' component={TabNavigator} options={{headerShown: false}}/>
         <Stack.Screen name ='editarProfile' component={editarProfile} options={{headerShown: false}}/> 
         <Stack.Screen name ='otroProfile' component={otroProfile} options={{headerShown: false}}/>
-        <Stack.Screen name ='Comments' component={Comments} options={{headerShown: false}}/>
+        <Stack.Screen name ='Comments' component={Comments}/>
       </Stack.Navigator>
     </NavigationContainer>
 
