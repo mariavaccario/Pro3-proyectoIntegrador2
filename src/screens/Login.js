@@ -38,8 +38,8 @@ class Login extends Component {
             })
     }
 
-    loginUser(email, pass){
-        auth.signInWithEmailAndPassword(email, pass)
+    loginUser(){
+        auth.signInWithEmailAndPassword(this.state.email, this.state.pass)
             .then( res => {
                 this.props.navigation.navigate('TabNavigator')
             })
@@ -124,7 +124,7 @@ class Login extends Component {
                 
             </View> 
 
-                    <TouchableOpacity onPress={()=>this.loginUser(this.state.email, this.state.pass)}>
+                    <TouchableOpacity onPress={()=>this.loginUser()}>
                         <Text style={style.botonIngresar}>Ingresar</Text>
                     </TouchableOpacity>
 
