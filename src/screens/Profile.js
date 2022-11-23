@@ -41,7 +41,7 @@ class Profile extends Component{
                         userName: usuario.userName,
                         email: usuario.owner,
                         bio: usuario.bio,
-                        photo: usuario.foto
+                        photo: usuario.photo
                     })
                 });
             }
@@ -72,12 +72,18 @@ render(){
     return(
         <View style={style.contenedor}>
             <Navbar/>
-            {/* <TouchableOpacity onPress={() => this.logout()} >   
-                <Text style={style.logout}><MaterialIcons name="logout" size={24} color="black" /></Text>
-            </TouchableOpacity>  */}
             
             <View style={style.contenedor2}>
-                <Text style={style.user}><AntDesign name="adduser" size={70} color="black" /></Text>
+                {this.state.photo !== ''?
+                <Image
+                    style={style.fotoPerfil}
+                    source={this.state.photo}
+                    resizeMode='contain'
+                />
+                :
+                <Text style={style.user}><AntDesign name="user" size={70} color="black" /></Text>
+                }
+                
                 <View style={style.info}>            
                     <Text>{this.state.userName}</Text>
                     <Text>{this.state.email}</Text>
@@ -95,17 +101,10 @@ render(){
                 </View>
             </View>
 
-            
-            {/* <Text style={style.misPosteos}>Mis posteos:</Text> */}
-            {/* <Image style = {style.logo} 
-                    source={require("../../assets/posts.png")}
-                    resizeMode='contain'
-            /> */}
-
             <FlatList
                 data= {this.state.posteosUser}
                 keyExtractor={onePost => onePost.id.toString()}
-                renderItem= {({item})=> <Posteo postData={item} />}
+                renderItem= {({item})=> <Posteo postData={item} irAComments={ () => this.irAComments()} navigation={this.props.navigation} />}
                 // refrescarPosts={this.traerPosteosUser}
 
             />
@@ -136,6 +135,13 @@ const style = StyleSheet.create({
         alignItems: 'center', 
         backgroundColor: 'white'
     }, 
+    fotoPerfil:{
+        width: 130,
+        height: 100,
+        borderRadius: '50%',
+        overflow: 'hidden',
+        marginHorizontal: 30, 
+    },
     icons: {
         flexDirection: 'row', 
         justifyContent: 'center'

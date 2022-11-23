@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Text, TouchableOpacity, StyleSheet, View, TextInput, FlatList} from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 import { auth, db } from '../firebase/config';
 import firebase from 'firebase';
@@ -29,7 +30,8 @@ addComment(comment){
         comments: firebase.firestore.FieldValue.arrayUnion ({
             owner: auth.currentUser.email,
             createdAt: Date.now(),
-            comment: comment
+            comment: comment,
+            
         })
     })
     .then(() => {
@@ -40,23 +42,27 @@ addComment(comment){
 }
 
 render(){
-    console.log(this.state.comments)
+    
     return(
         <View> 
         <Navbar/>
+            <Text style={style.arrow} onPress={()=> this.props.navigation.navigate('Home')}> 
+                <AntDesign name="arrowleft" size={24} color="black" />
+            </Text>
         <View style={style.contenedor}>
-        <Text style={style.titulo}> Comentarios del posteo</Text>
+            
+        <Text style={style.titulo}>Comentarios del posteo</Text>
 
         {this.state.comments == 0 ?
         
         <View> 
-        <Text style={style.sinComentarios}> Esta publicación aun no tiene comentarios. ¡Sé el primero! </Text>
+        <Text style={style.sinComentarios}>Esta publicación aun no tiene comentarios. ¡Sé el primero! </Text>
         </View>
         :
         <FlatList style={style.resultados}
             data={this.state.comments}
             keyExtractor={ oneComment => oneComment.createdAt.toString()}
-            renderItem={ ({item}) => <Text>{item.owner} : {item.comment}</Text>}
+            renderItem={ ({item}) => <Text>{item.owner}: {item.comment}</Text>}
         /> 
         }
         <TextInput style={style.formulario}
@@ -119,16 +125,23 @@ const style = StyleSheet.create({
         backgroundColor: 'white',
         marginTop: 3,
         margin: 20,
+        
+        
     },
     titulo: {
-        marginLeft: 57, 
-        marginRight: 4,
+        marginLeft: 20,
         marginTop: 16,
         fontWeight: 'bold',
-        marginBottom: 5
+        marginBottom: 10,
+        fontSize: 20
     },
     sinComentarios: {
-        margin: 6
+        marginLeft: 20, 
+        marginBottom: 5
+    }, 
+    arrow: {
+        marginHorizontal: 10, 
+        paddingVertical: 10, 
     }
 })
 

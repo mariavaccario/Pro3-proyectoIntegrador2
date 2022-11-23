@@ -5,7 +5,8 @@ import { View,
     TouchableOpacity,
     Image,
     FlatList,
-    StyleSheet} from 'react-native';
+    StyleSheet,
+    ActivityIndicator} from 'react-native';
 
 import Posteo from '../components/Posteo/Posteo'
 import Navbar from '../components/Navbar/Navbar'
@@ -41,15 +42,12 @@ class Home extends Component {
     //}
 
     render() {
-        console.log(this.state.posts);
+        
         return (
             <View style={style.contenedor}>
                 <Navbar />
 
                 
-                {/* <Image style = {style.logo} 
-                    source={require("../../assets/tentate.png")}
-                    resizeMode='contain'/> */}
 
                 <FlatList style={style.fondo}
                     data={this.state.posts}

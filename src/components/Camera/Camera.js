@@ -44,6 +44,11 @@ class MyCamera extends Component{
                     .then(()=>{
                         refStorage.getDownloadURL()
                         .then( url => this.props.onImageUpload(url))
+
+                        this.setState({
+                            urlTemporal:'',
+                            showCamera: false
+                        })
                     })
             })
             .catch(e => console.log(e))

@@ -8,33 +8,37 @@ import { View,
         Image } from 'react-native';
 
 class Register extends Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
+            props:props,
             email: '',
             pass: '',
             userName: '',
             bio: '',
+            photo: '',
             field: '', 
             message: ''
         }
     }
 
-     componentDidMount(){
-         auth.onAuthStateChanged(
-             user => {
-              if(user){
-                 this.props.navigation.navigate('Login')
-         }})
-     }
+    // componentDidMount(){
+    //     auth.onAuthStateChanged(
+    //        user =>{
+    //             if(user){
+    //                this.props.navigation.navigate('Login')
+    //              } 
+    //          })
+    // }
 
-    registerUser(email, pass, userName, bio){
-        auth.createUserWithEmailAndPassword(email, pass)
+    registerUser(){
+        auth.createUserWithEmailAndPassword(this.state.email, this.state.pass)
         .then( res => {
             db.collection('users').add({
-                owner: email,
-                userName: userName,
-                bio: bio,
+                owner: this.state.email,
+                userName: this.state.userName,
+                bio: this.state.bio,
+                photo: this.state.photo,
                 createdAt: Date.now()
             })
 
@@ -44,6 +48,7 @@ class Register extends Component{
                 pass:'',
                 userName: '',
                 bio: '',
+                photo: '',
                 field: '',
                 message: ''
             })
@@ -56,13 +61,13 @@ class Register extends Component{
             if (error.code === 'auth/invalid-email'){
                 this.setState({
                     field: 'email', 
-                    message: 'Email incorrecto'
+                    message: 'Ingresar un mail'
             
                 })
             }else if (error.code === 'auth/weak-password'){
                 this.setState({
                     field: 'password', 
-                    message: 'Contraseña incorrecta'
+                    message: 'Ingresar una contraseña'
             
                 })
             }
@@ -70,14 +75,6 @@ class Register extends Component{
         })
     })}
 
-
-    onImageUpload(url) {
-        console.log(url)
-        this.setState({
-            foto: url,
-            showCamera: false,
-        })
-    }
 
     render(){
         return(
@@ -87,6 +84,7 @@ class Register extends Component{
                 source={require("../../assets/register.com.png")}
                 resizeMode='contain'/>
                 
+                <View>
                 {this.state.field == 'email' ?
                 <>
                 <TextInput style={style.boxM} 
@@ -120,6 +118,7 @@ class Register extends Component{
                     <TextInput style={style.box} 
                             placeholder='Password'
                             keyboardType='default'
+                            secureTextEntry={true}
                             onChangeText={ text => this.setState({pass:text}) }
                             value={this.state.pass}
                         />
@@ -138,7 +137,9 @@ class Register extends Component{
                         value={this.state.bio}
                     />   
 
-                    <TouchableOpacity onPress={()=>this.registerUser(this.state.email, this.state.pass, this.state.userName, this.state.bio)}>
+                    </View>
+
+                    <TouchableOpacity onPress={()=>this.registerUser()}>
                         <Text style={style.botonIngresar}>Registrarme</Text>
                     </TouchableOpacity>
 

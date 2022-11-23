@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity, StyleSheet, View, Image} from 'react-native';
+import {Text, TouchableOpacity, StyleSheet, View, Image, Alert} from 'react-native';
 
 import firebase from 'firebase';
 import {auth, db} from '../../firebase/config';
@@ -68,10 +68,12 @@ class Posteo extends Component {
     }
 
     Verificar(){
-        this.setState({
-            isMyPost: this.props.postData.data.owner === auth.currentUser.email
-        })
-    }
+         this.setState({
+             isMyPost: this.props.postData.data.owner === auth.currentUser.email
+         })
+     }
+
+    
 
 render(){
     return(
@@ -102,34 +104,36 @@ render(){
          
             
             <View style={style.likes}>
-            {this.state.userLike ?                 
+            
+            {this.state.userLike ?      
+
+            <>
+                <Text style={style.nroLikes}>{this.state.numeroLikes} </Text>           
                 <TouchableOpacity onPress={()=> this.noMeGusta()}>
-                    <Ionicons name="ios-heart-sharp" size={24} color="black" />
+                    <Ionicons name="ios-heart-sharp" size={24} color="red" />
                 </TouchableOpacity>
-                
+            </>
                 :
+            <>
+                <Text style={style.nroLikes}>{this.state.numeroLikes} </Text>   
                 <TouchableOpacity onPress={()=> this.meGusta()}>
-                    <Ionicons name="ios-heart-outline" size={24} color="black" />
+                    <Ionicons name="ios-heart-outline" size={24} color="red" />
                 </TouchableOpacity>
+            </>
                 
 
                     }
-                <Text style={style.nroLikes}>{this.state.numeroLikes} Me gusta</Text>
+                
           </View>
 
         <View style={style.iconos}>
-            <FlatList style={style.resultados}
-                data={this.state.comments}
-                keyExtractor={ oneComment => oneComment.createdAt.toString()}
-                renderItem ={ ({item}) => <Text >{item.owner}: {item.comment}</Text>}
-            /> 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments',{id:this.props.postData.id})}>
-                <Text>Ver los {this.state.comments.length} comentarios</Text>
-            </TouchableOpacity>
+            <Text onPress={() => this.props.navigation.navigate('Comments',{id:this.props.postData.id})}>
+                Ver los {this.state.comments.length} comentarios
+            </Text>
             {this.state.isMyPost ? (
                     <TouchableOpacity onPress={() => this.borrarPosteo()}>
-            <FontAwesome5 name="trash" size={18} color="black" style={style.borrar}/>
-            </TouchableOpacity>
+                        <FontAwesome5 name="trash" size={18} color="black" style={style.borrar}/>
+                    </TouchableOpacity>
                 ) : null}
         </View>
        </View>
@@ -165,7 +169,13 @@ const style = StyleSheet.create({
     }, 
     likes:{
         marginHorizontal: 10,
-        marginVertical: 5
+        marginVertical: 5, 
+        flexDirection: 'row', 
+        justifyContent: 'left'
+    }, 
+    nroLikes:{
+        marginTop: 3, 
+        marginRight: 2
     }
 })
 

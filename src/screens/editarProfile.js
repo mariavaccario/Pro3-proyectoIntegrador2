@@ -8,8 +8,11 @@ import {
     TouchableOpacity,
     StyleSheet,
     FlatList,
-    Image
+    Image,
+
 } from 'react-native';
+import MyCamera from '../components/Camera/Camera';
+import { AntDesign } from '@expo/vector-icons';
 
 class EditarProfile extends Component{
     constructor(){
@@ -18,6 +21,7 @@ class EditarProfile extends Component{
             userName: '',
             bio: '',
             fotoDePerfil: '',
+            showCamera: false,
             pass: '',
             passVieja: ''
         }
@@ -33,7 +37,7 @@ class EditarProfile extends Component{
                         userName: usuario.userName,
                         email: usuario.owner,
                         bio: usuario.bio,
-                        photo: usuario.foto
+                        fotoDePerfil: usuario.photo
                     })
                 });
             }
@@ -58,6 +62,7 @@ class EditarProfile extends Component{
                         .update({
                             userName: this.state.userName,
                             bio: this.state.bio,
+                            photo: this.state.fotoDePerfil
                         })
    
                     })
@@ -73,63 +78,147 @@ class EditarProfile extends Component{
                         .update({
                             userName: this.state.userName,
                             bio: this.state.bio,
+                            photo: this.state.fotoDePerfil
                         })
    
                     
         }
     }
 
+    onImageUpload(url){
+        this.setState({
+            fotoDePerfil: url,
+            showCamera: false,
+        })
+
+    }
+
+    camara (){
+        this.setState ({
+            showCamera: true
+        })
+    }
+
 render(){
     return(
         <View style={style.contenedor}> 
-            <Image style = {style.logo} 
-                source={require("../../assets/editarperfil.png")}
-                resizeMode='contain'/>
-                
-                <TextInput style={style.box} 
+
+            <Text style={style.arrow} onPress={()=> this.props.navigation.navigate('Profile')}> 
+                <AntDesign  name="arrowleft" size={24} color="black" />
+            </Text>
+           
+                {this.state.showCamera ?
+                <MyCamera onImageUpload={url => this.onImageUpload(url)}/>
+                :
+                <View>
+                    {this.state.fotoDePerfil !== ''?
+                    <>
+                        <Image style = {style.logo} 
+                        source={require("../../assets/editarperfil.png")}
+                        resizeMode='contain'
+                        />    
+                        <TextInput style={style.box} 
                         placeholder='Contraseña anterior'
                         keyboardType='default'
                         onChangeText={ text => this.setState({passVieja:text}) }
                         value={this.state.passVieja}
-                    /> 
-                    <TextInput style={style.box} 
-                        placeholder='Nueva contraseña'
-                        keyboardType='default'
-                        onChangeText={ text => this.setState({pass:text}) }
-                        value={this.state.pass}
-                    /> 
-                    <TextInput style={style.box}   
-                        placeholder='Nuevo nombre de usuario'
-                        keyboardType='default'
-                        onChangeText={ text => this.setState({userName:text}) }
-                        value={this.state.userName}
-                    />
-                    <TextInput style={style.box}  
-                        placeholder='Modificá tu bio'
-                        keyboardType='default'
-                        onChangeText={ text => this.setState({bio:text}) }
-                        value={this.state.bio}
-                    />   
+                        /> 
+                        <TextInput style={style.box} 
+                            placeholder='Nueva contraseña'
+                            keyboardType='default'
+                            onChangeText={ text => this.setState({pass:text}) }
+                            value={this.state.pass}
+                        /> 
+                        <TextInput style={style.box}   
+                            placeholder='Nuevo nombre de usuario'
+                            keyboardType='default'
+                            onChangeText={ text => this.setState({userName:text}) }
+                            value={this.state.userName}
+                        />
+                        <TextInput style={style.box}  
+                            placeholder='Modificá tu bio'
+                            keyboardType='default'
+                            onChangeText={ text => this.setState({bio:text}) }
+                            value={this.state.bio}
+                        />   
+                        <TouchableOpacity  style={style.box} onPress={() => this.camara()}>
+                            <Text style={style.buttonText}> <AntDesign name="camerao" size={24} color="black" /> Cambiar foto de perfil </Text>
+                        </TouchableOpacity>
+                        
+                        <Image
+                        style={style.image}
+                        source={{uri: this.state.fotoDePerfil}}
+                        />
 
+                        <TouchableOpacity onPress={()=>this.editarPerfil()}>
+                            <Text style={style.botonIngresar}>Aceptar</Text>
+                        </TouchableOpacity>
+                    </>
+                    :
+                    <>
+                        <Image style = {style.logo} 
+                        source={require("../../assets/editarperfil.png")}
+                        resizeMode='contain'
+                        />
+                        
+                        <TextInput style={style.box} 
+                        placeholder='Contraseña anterior'
+                        keyboardType='default'
+                        onChangeText={ text => this.setState({passVieja:text}) }
+                        value={this.state.passVieja}
+                        /> 
+                        <TextInput style={style.box} 
+                            placeholder='Nueva contraseña'
+                            keyboardType='default'
+                            onChangeText={ text => this.setState({pass:text}) }
+                            value={this.state.pass}
+                        /> 
+                        <TextInput style={style.box}   
+                            placeholder='Nuevo nombre de usuario'
+                            keyboardType='default'
+                            onChangeText={ text => this.setState({userName:text}) }
+                            value={this.state.userName}
+                        />
+                        <TextInput style={style.box}  
+                            placeholder='Modificá tu bio'
+                            keyboardType='default'
+                            onChangeText={ text => this.setState({bio:text}) }
+                            value={this.state.bio}
+                        />
+                        <TouchableOpacity  style={style.button} onPress={() => this.camara()}>
+                            <Text style={style.buttonText}> <AntDesign name="camerao" size={24} color="black" /> Agregar foto de perfil </Text>
+                        </TouchableOpacity>
 
+                        <TouchableOpacity onPress={()=>this.editarPerfil()}>
+                            <Text style={style.botonIngresar}>Aceptar</Text>
+                        </TouchableOpacity>
+                    </>
 
-                    <TouchableOpacity onPress={()=>this.editarPerfil()}>
-                        <Text style={style.botonIngresar}>Aceptar</Text>
-                    </TouchableOpacity>
+                }
+                </View>
+                }
+                   
+                    
 
         </View>
-
     )
+
 }
 }
+
 
 const style =StyleSheet.create({
-    contenedor:{
-        flex: 1,
-        backgroundColor: 'white',
-        justifyContent: 'center',
-        padding: 15,
-        color: 'black'
+    // contenedor:{
+    //     flex: 1,
+    //     backgroundColor: 'white',
+    //     justifyContent: 'center',
+    //     padding: 15,
+    //     color: 'black'
+    // },
+    image: {
+        height: 400,
+        marginVertical: 10,
+        margin: 3,
     },
 
     box:{
@@ -169,6 +258,26 @@ const style =StyleSheet.create({
     logo:{
         height:100, 
         margin: 15
+    }, 
+    button:{
+        padding: 15,
+        margin: 5,
+        borderColor: '#444',
+        borderWidth: 1,
+        paddingVertical:8,
+        borderRadius: 4,
+        
+        
+    },
+    buttonText:{
+        
+        color: 'black',
+       
+
+    },
+    arrow: {
+        marginHorizontal: 10, 
+        paddingVertical: 10, 
     }
 
 

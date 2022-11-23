@@ -5,17 +5,21 @@ import { View,
          TextInput,
          TouchableOpacity,
          StyleSheet,
-        Image } from 'react-native';
+        Image, 
+        ActivityIndicator} from 'react-native';
 //import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
+            props:props,
             email:'',
             pass:'',
             field:'', 
-            message: ''
+            message: '',
+            user: true,
+
             
         }
     }
@@ -25,6 +29,11 @@ class Login extends Component {
             user =>{
                 if(user){
                     this.props.navigation.navigate('TabNavigator')
+                
+                } else {
+                    this.setState({
+                        user:false
+                    })
                 }
             })
     }
@@ -36,7 +45,7 @@ class Login extends Component {
             })
             .catch(error => {
                 console.log(error)
-                if (error.code == 'auth/invalid-email' && error.code=='auth/user-not-found'){
+                if (error.code == 'auth/invalid-email' || error.code =='auth/user-not-found'){
                     this.setState({
                         field: 'email', 
                         message: 'Email incorrecto'
@@ -57,7 +66,15 @@ class Login extends Component {
     render(){
         console.log(this.state.message + this.state.field)
         return(
-            <View style={style.contenedor} >
+           <View style={style.contenedor}>
+            {this.state.user ?
+                <ActivityIndicator style={style.loader} size='large' color='blue'/> :
+           
+           <View style={style.contenedor} >
+
+               
+
+            
                  <Image style = {style.logo} 
                 source={require("../../assets/Artboard1.png")}
                 resizeMode='contain'/>
@@ -112,8 +129,12 @@ class Login extends Component {
                     </TouchableOpacity>
 
                     <Text style={style.textTitle}onPress={ () => this.props.navigation.navigate('Register')} >Si no tenes cuenta, registrate aca</Text>
-                
+     
             </View>
+
+        }   
+
+        </View>
         )
     }
     
@@ -133,11 +154,11 @@ const style= StyleSheet.create({
         borderWidth: 1,
         padding: 15,
         margin: 3,
-        backgroundColor: 'rgb(243,245,243)',
-        borderRadius: 7,
         borderColor: 'black',
-    },
+        backgroundColor: 'rgb(243,245,243)',
+        borderRadius: 7
 
+    },
     boxM:{
         borderStyle: 'solid',
         borderWidth: 1,
@@ -175,14 +196,14 @@ const style= StyleSheet.create({
         padding: 15,
         textAlign: 'center',
         color: 'white',
-        borderRadius: 7,
+        borderRadius: 3,
 
     },
     logo:{
         height:100, 
-        margin: 15
-    },
-
+        margin: 15,
+        
+    }
 
 })
 
