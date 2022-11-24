@@ -32,7 +32,7 @@ class NewPost extends Component{
             .then(() => {
                 this.setState({
                     textoPost:'',
-                    showCamera: false,
+                    showCamera: true,
                 })
                 this.props.navigation.navigate('Home')
             })
