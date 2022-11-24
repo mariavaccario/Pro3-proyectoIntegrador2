@@ -15,7 +15,7 @@ function TabNavigator(){
     return (
         <Tab.Navigator screenOptions={{tabBarShowLabel: false}}>
             <Tab.Screen
-                name='Home'
+                name='Home' 
                 component = {Home}
                 options={
                     {tabBarIcon: ()=> <Entypo name="home" size={24} color="black" />, headerShown: false}

@@ -9,9 +9,8 @@ class Posteo extends Component {
     constructor(props){
         super(props)
         this.state = {
-            numeroLikes: this.props.postData.data.likes.length,
+            numeroLikes: this.props.postData.data.likes.length, 
             userLike: false, 
-            comments: this.props.postData.data.comments
         }
     }
 
@@ -21,23 +20,23 @@ class Posteo extends Component {
     componentDidMount(){
         if(this.props.postData.data.likes.includes(auth.currentUser.email)){
             this.setState({
-                userLike: true
+                userLike: true 
             })
         }
         this.Verificar();
     }
 
     meGusta(){
-        db.collection('posts')
+        db.collection('posts') 
             .doc(this.props.postData.id) 
-            .update(
+            .update( 
                 {
                     likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email) 
-                }
+                } 
             ) 
             .then(()=> this.setState({
-                numeroLikes: this.state.numeroLikes + 1, 
-                userLike: true
+                numeroLikes: this.state.numeroLikes + 1,  
+                userLike: true 
                 })
             ) 
             .catch(error => console.log(error))
@@ -105,17 +104,17 @@ render(){
             
             <View style={style.likes}>
             
-            {this.state.userLike ?      
+            {this.state.userLike ?  
 
-            <>
-                <Text style={style.nroLikes}>{this.state.numeroLikes} </Text>           
-                <TouchableOpacity onPress={()=> this.noMeGusta()}>
+            <> 
+                <Text style={style.nroLikes}>{this.state.numeroLikes}</Text>           
+                <TouchableOpacity onPress={()=> this.noMeGusta()}> 
                     <Ionicons name="ios-heart-sharp" size={24} color="red" />
-                </TouchableOpacity>
+                </TouchableOpacity>     
             </>
                 :
             <>
-                <Text style={style.nroLikes}>{this.state.numeroLikes} </Text>   
+                    <Text style={style.nroLikes}>{this.state.numeroLikes} </Text> 
                 <TouchableOpacity onPress={()=> this.meGusta()}>
                     <Ionicons name="ios-heart-outline" size={24} color="red" />
                 </TouchableOpacity>

@@ -11,7 +11,7 @@ import editarProfile from './src/screens/editarProfile'
 import otroProfile from './src/screens/otroProfile'
 import Comments from "./src/screens/Comments";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator(); 
 
 function App() {
   return (
