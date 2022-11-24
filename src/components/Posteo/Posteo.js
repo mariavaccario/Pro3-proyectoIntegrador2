@@ -11,6 +11,7 @@ class Posteo extends Component {
         this.state = {
             numeroLikes: this.props.postData.data.likes.length, 
             userLike: false, 
+            comments: this.props.postData.data.comments
         }
     }
 
