@@ -60,7 +60,7 @@ render(){
         </View>
         :
         <FlatList style={style.resultados}
-            data={this.state.comments}
+            data={this.state.comments.sort((a,b)=> b.createdAt - a.createdAt)}
             keyExtractor={ oneComment => oneComment.createdAt.toString()}
             renderItem={ ({item}) => <Text>{item.owner}: {item.comment}</Text>}
         /> 
